@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="ZuGuo·Tang的博客">
+    <meta name="keyword" content="Spring Cloud,micro services">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+            consul学习笔记 - ZuGuo·Tang的博客 | ZuGuo·Tang&#39;s Blog
+                
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css?v=0.0.2">
+        <link rel="stylesheet" href="/css/gitment.css">
+            <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+            <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+            <!-- ga & ba script hoook -->
+            <script></script>
+</head>
+<style>
+svg.svg-defs {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-bottom: 2em;
+    padding-bottom: 2em;
+    padding-right: 3em;
+    /* border-bottom: 1px solid #DDD; */
+    counter-increment: mylist;
+}
+.item:before {
+  content: counter(mylist);
+  position: absolute;
+  right: 0;
+  top: 0;
+  font: 2rem/1 Georgia, serif;
+  color: #EEE;
+}
+.item:after {
+  content: '';
+  display: table;
+  width: 100%;
+}
+
+.demo {
+  position: relative;
+  float: left;
+  margin-right: 30px;
+}
+.demo:before {
+  content: '';
+  display: block;
+  position: absolute;
+  z-index: -2;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: url(/img/banner.jpg) no-repeat;
+  opacity: 0;
+  transition: .7s;
+  background-size: 200px 360px;
+}
+.item:hover .demo:before {
+  opacity: .4;
+}
+
+.text {
+  padding-left: 230px;
+}
+
+.demo, #clipping-with-text, #masking text {
+    font: bold italic 5em/1.5 Georgia;
+}
+
+.item--svg-fill text {
+    fill: url(#pattern);
+}
+
+</style>
+<body>
+
+<svg class="svg-defs">
+    <defs>
+    <!-- <clipPath id="clipping">
+    <polygon points="98 153 38 185 49 118 1 70 68 61 98 1 128 61 195 70 147 118 158 185"></polygon>
+    </clipPath>
+    <clipPath id="clipping-with-text">
+    <polygon points="98 153 38 185 49 118 1 70 68 61 98 1 128 61 195 70 147 118 158 185"></polygon>
+    <text x="0" y="3.2em">Text</text>
+    </clipPath>
+    <linearGradient id="gradient" x1="0" y1="0" x2="110%" y2="0%">
+    <stop stop-color="#fff" offset="0"></stop><stop stop-color="#fff" offset="10%"></stop>
+    <stop stop-color="#AAA" offset="10%"></stop><stop stop-color="#AAA" offset="20%"></stop>
+    <stop stop-color="#777" offset="20%"></stop><stop stop-color="#777" offset="30%"></stop>
+    <stop stop-color="#333" offset="30%"></stop><stop stop-color="#333" offset="40%"></stop>
+    <stop stop-color="#000" offset="40%"></stop><stop stop-color="#000" offset="50%"></stop>
+    <stop stop-color="#fff" offset="50%"></stop><stop stop-color="#fff" offset="60%"></stop>
+    <stop stop-color="#AAA" offset="60%"></stop><stop stop-color="#AAA" offset="70%"></stop>
+    <stop stop-color="#777" offset="70%"></stop><stop stop-color="#777" offset="80%"></stop>
+    <stop stop-color="#333" offset="80%"></stop><stop stop-color="#333" offset="90%"></stop>
+    <stop stop-color="#000" offset="90%"></stop><stop stop-color="#000" offset="100%"></stop>
+    </linearGradient>
+    <mask id="masking" maskUnits="objectBoundingBox" maskContentUnits="objectBoundingBox">
+    <rect y="0" width="1" height="1" fill="url(#gradient)"></rect>
+    <circle cx=".5" cy=".5" r=".42" fill="black"></circle>
+    <circle cx="0" cy=".5" r=".32" fill="black"></circle>
+    <circle cx="1" cy=".5" r=".32" fill="black"></circle>
+    <circle cx="0" cy=".5" r=".3" fill="gray"></circle>
+    <circle cx=".5" cy=".5" r=".4" fill="gray"></circle>
+    <circle cx="1" cy=".5" r=".3" fill="gray"></circle>
+    <circle cx="0" cy=".5" r=".25" fill="white"></circle>
+    <circle cx=".5" cy=".5" r=".35" fill="white"></circle>
+    <circle cx="1" cy=".5" r=".25" fill="white"></circle>
+    </mask> -->
+    <pattern id="pattern" patternUnits="userSpaceOnUse" width="200" height="360" viewBox="0 0 200 360" style="overflow: hidden;">
+        <image xlink:href="/img/banner.jpg" width="200" height="360"></image>
+    </pattern>
+    </defs>
+</svg>
+
+<div class="item item--svg-fill">
+    <div class="demo">
+    <svg style="width: 200px;height: 360px;">
+        <text x="0" y="1em">雅✨</text>
+    </svg>
+    </div>
+</div>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 世界的樣子取決於寧的態度 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar ">
+            <img src="/img/avatar.jpg" />
+        </div>
+        <div class="name">
+            <i>ZuGuo·Tang</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装"><span class="toc-text">安装</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#使用编译好的二进制文件"><span class="toc-text">使用编译好的二进制文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#源码编译安装"><span class="toc-text">源码编译安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#验证安装"><span class="toc-text">验证安装</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Consul-会使用的端口"><span class="toc-text">Consul 会使用的端口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#引导-Datacenter-（数据中心）"><span class="toc-text">引导 Datacenter （数据中心）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#引导-Servers"><span class="toc-text">引导 Servers</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建集群"><span class="toc-text">创建集群</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#自动加入服务器"><span class="toc-text">自动加入服务器</span></a></li></ol></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+
+        <div class="index-about-mobile">
+            <i> 世界的樣子取決於寧的態度 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        consul学习笔记
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2019-12-05 11:09:58</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#consul" title="consul">consul</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>两种方式安装：</p>
+<ol>
+<li>使用编译好的二进制文件</li>
+<li>源码编译安装</li>
+</ol>
+<h4 id="使用编译好的二进制文件"><a href="#使用编译好的二进制文件" class="headerlink" title="使用编译好的二进制文件"></a>使用编译好的二进制文件</h4><p>从官网下载zip包，解压，配好PATH环境变量即可。</p>
+<h4 id="源码编译安装"><a href="#源码编译安装" class="headerlink" title="源码编译安装"></a>源码编译安装</h4><p>需要安装GO环境，和git 用于clone源码</p>
+<ol>
+<li><p>clone 源码</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> mkdir -p <span class="variable">$GOPATH</span>/src/github.com/hashicorp &amp;&amp; <span class="built_in">cd</span> !$</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git <span class="built_in">clone</span> https://github.com/hashicorp/consul.git</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> consul</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>引导项目,这将下载编译consul所需的库和工具:</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>make tools</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编译本地环境</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>make dev</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="验证安装"><a href="#验证安装" class="headerlink" title="验证安装"></a>验证安装</h4><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>consul -v</span><br></pre></td></tr></table></figure>
+<h3 id="Consul-会使用的端口"><a href="#Consul-会使用的端口" class="headerlink" title="Consul 会使用的端口"></a>Consul 会使用的端口</h3><table>
+<thead>
+<tr>
+<th style="text-align:left">Use</th>
+<th style="text-align:right">Default Ports</th>
+<th style="text-align:right">翻译</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">DNS: The DNS server (TCP and UDP)</td>
+<td style="text-align:right">8600</td>
+<td style="text-align:right">用于解析DNS查询</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">HTTP: The HTTP API (TCP Only)</td>
+<td style="text-align:right">8500</td>
+<td style="text-align:right">用于和 client 交互的接口</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">HTTPS: The HTTPs API</td>
+<td style="text-align:right">disabled (8501)*</td>
+<td style="text-align:right">(可选)在默认情况下是关闭的，但是端口8501是各种工具使用的默认约定。</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">gRPC: The gRPC API</td>
+<td style="text-align:right">disabled (8502)*</td>
+<td style="text-align:right">(可选)目前，gRPC仅用于向特使代理公开xDS API。它在默认情况下是关闭的，但是端口8502是各种工具使用的默认约定。在-dev模式下默认为8502。</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">LAN Serf: The Serf LAN port (TCP and UDP)</td>
+<td style="text-align:right">8301</td>
+<td style="text-align:right">这是用来处理局域网内的 gossip 消息的。所有agent 都必须有。</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">Wan Serf: The Serf WAN port (TCP and UDP)</td>
+<td style="text-align:right">8302</td>
+<td style="text-align:right">这是服务器用来在广域网上与其他服务器gossip 消息的。从Consul v0.8广域网加入洪水功能要求Serf广域网端口(TCP/UDP)监听广域网和局域网接口。另见: <a href="https://github.com/hashicorp/consul/blob/master/CHANGELOG.md#080-april-5-2017" target="_blank" rel="noopener">Consul v0.8.0 CHANGELOG</a>和<a href="https://github.com/hashicorp/consul/issues/3058" target="_blank" rel="noopener">GH-3058</a></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">server: Server RPC address (TCP Only)</td>
+<td style="text-align:right">8300</td>
+<td style="text-align:right">服务器使用它来处理来自其他代理的传入请求。</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">Sidecar Proxy Min: Inclusive min port number to use for automatically assigned sidecar service registrations.</td>
+<td style="text-align:right">21000</td>
+<td style="text-align:right"></td>
+</tr>
+<tr>
+<td style="text-align:left">Sidecar Proxy Max: Inclusive max port number to use for automatically assigned sidecar service registrations.</td>
+<td style="text-align:right">21255</td>
+<td style="text-align:right"></td>
+</tr>
+</tbody>
+</table>
+<p>*对于HTTPS和gRPC，建议使用表中指定的端口。</p>
+<h3 id="引导-Datacenter-（数据中心）"><a href="#引导-Datacenter-（数据中心）" class="headerlink" title="引导 Datacenter （数据中心）"></a>引导 Datacenter （数据中心）</h3><p>agent 有 client 和 server 两种运行方式。server 节点负责运行<a href="https://www.consul.io/docs/internals/consensus.html" target="_blank" rel="noopener">一致性协议</a> 和存储集群状态。client 大多是无状态的，严重依赖server节点。</p>
+<p>在 Consul 集群可以开始服务请求之前，必须选举一个 Server 节点为leader。引导是将这些初始服务器节点连接到集群中的过程。阅读<a href="https://www.consul.io/docs/internals/architecture.html" target="_blank" rel="noopener">架构文档</a>以了解更多关于Consul的内部信息。</p>
+<p>建议每个数据中心拥有3到5个服务器。单个服务器部署是非常不鼓励的，因为在失败场景中数据丢失是不可避免的。有关详细信息，请参阅<a href="https://www.consul.io/docs/internals/consensus.html#deployment-table" target="_blank" rel="noopener">部署表</a>。</p>
+<blockquote>
+<p>注意:在0.4之前的版本中，bootstrapping是一个手动过程。有关直接使用<code>-bootstrap</code>标志的详细信息，请参阅手动引导文档。在更新版本的执政者(0.5和更新版本)中不推荐使用<code>-bootstrap</code>手动引导，因为它更容易出错。相反，应该使用带有<code>-bootstrap-expect</code>的自动引导。</p>
+</blockquote>
+<h3 id="引导-Servers"><a href="#引导-Servers" class="headerlink" title="引导 Servers"></a>引导 Servers</h3><p>引导服务器的推荐方法是使用<code>-bootstrap-expect</code>配置选项。此选项通知 Consul 服务器节点的预期数量，并在多个服务器可用时自动引导。为了防止不一致性和分裂大脑(多个服务器认为自己是领导者的集群)的情况，您应该为-bootstrap-expect指定相同的值，或者在所有服务器上完全不指定值。只有指定值的服务器才会尝试引导集群。</p>
+<p>假设我们启动一个包含三个服务器的集群。我们可以启动节点A、节点B和节点C，每个节点都提供<code>-bootstrap-expect 3</code>标志。启动节点后，您应该会在服务输出中看到一条警告消息。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">[WARN]</span> <span class="attr">raft:</span> <span class="string">EnableSingleNode</span> <span class="string">disabled,</span> <span class="string">and</span> <span class="literal">no</span> <span class="string">known</span> <span class="string">peers.</span> <span class="string">Aborting</span> <span class="string">election.</span></span><br></pre></td></tr></table></figure>
+<p>警告表明，节点期望有2个对等节点，但还不知道。下面你将学习如何连接服务器，使一个可以被选为leader。</p>
+<h3 id="创建集群"><a href="#创建集群" class="headerlink" title="创建集群"></a>创建集群</h3><p>您可以通过将服务器连接在一起来触发leader election，从而创建一个集群。您可以将节点配置为自动连接，也可以手动连接。</p>
+<h4 id="自动加入服务器"><a href="#自动加入服务器" class="headerlink" title="自动加入服务器"></a>自动加入服务器</h4><p>连接服务器有多种选择。选择最适合您的环境和特定用例的方法。</p>
+<ul>
+<li>使用<code>-join</code>和<code>start_join</code>选项指定服务器列表。</li>
+<li>使用<code>-retry-join</code>选项指定服务器列表。</li>
+<li>使用<code>-retry-join</code>选项对受支持的云环境使用标记自动连接。</li>
+</ul>
+
+        
+            <div class="donate-container">
+    <div class="donate-button">
+        <button id="donate-button">赞赏</button>
+    </div>
+    <div class="donate-img-container hide" id="donate-img-container">
+        <img id="donate-img" src="" data-src="/img/donate.png">
+        <p> 感谢鼓励 </p>
+    </div>
+</div>
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/xuan-xiao-80-6">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                        
+                            <li>
+                                <a target="_blank" href="http://weibo.com/5482298932">
+                                    <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+                                </a>
+                            </li>
+                            
+
+                                
+
+                                        
+                                            <li>
+                                                <a target="_blank" href="https://github.com/Mirror-l">
+                                                    <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+                                                </a>
+                                            </li>
+                                            
+
+                                                
+
+    </ul>
+    
+        <p>
+            <span>/</span>
+            
+                <span><a href="https://github.com/">github</a></span>
+                <span>/</span>
+                
+                <span><a href="https://spring.io/">spring</a></span>
+                <span>/</span>
+                
+                <span><a href="#">It helps SEO</a></span>
+                <span>/</span>
+                
+        </p>
+        
+            <p>
+                <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+                </span>
+                <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+                </span>
+                Created By <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

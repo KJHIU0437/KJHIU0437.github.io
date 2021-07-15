@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="ZuGuo·Tang的博客">
+    <meta name="keyword" content="Spring Cloud,micro services">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+            Windows下将nginx配置成服务并设置开机自启动 - ZuGuo·Tang的博客 | ZuGuo·Tang&#39;s Blog
+                
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css?v=0.0.2">
+        <link rel="stylesheet" href="/css/gitment.css">
+            <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+            <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+            <!-- ga & ba script hoook -->
+            <script></script>
+</head>
+<style>
+svg.svg-defs {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-bottom: 2em;
+    padding-bottom: 2em;
+    padding-right: 3em;
+    /* border-bottom: 1px solid #DDD; */
+    counter-increment: mylist;
+}
+.item:before {
+  content: counter(mylist);
+  position: absolute;
+  right: 0;
+  top: 0;
+  font: 2rem/1 Georgia, serif;
+  color: #EEE;
+}
+.item:after {
+  content: '';
+  display: table;
+  width: 100%;
+}
+
+.demo {
+  position: relative;
+  float: left;
+  margin-right: 30px;
+}
+.demo:before {
+  content: '';
+  display: block;
+  position: absolute;
+  z-index: -2;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: url(/img/banner.jpg) no-repeat;
+  opacity: 0;
+  transition: .7s;
+  background-size: 200px 360px;
+}
+.item:hover .demo:before {
+  opacity: .4;
+}
+
+.text {
+  padding-left: 230px;
+}
+
+.demo, #clipping-with-text, #masking text {
+    font: bold italic 5em/1.5 Georgia;
+}
+
+.item--svg-fill text {
+    fill: url(#pattern);
+}
+
+</style>
+<body>
+
+<svg class="svg-defs">
+    <defs>
+    <!-- <clipPath id="clipping">
+    <polygon points="98 153 38 185 49 118 1 70 68 61 98 1 128 61 195 70 147 118 158 185"></polygon>
+    </clipPath>
+    <clipPath id="clipping-with-text">
+    <polygon points="98 153 38 185 49 118 1 70 68 61 98 1 128 61 195 70 147 118 158 185"></polygon>
+    <text x="0" y="3.2em">Text</text>
+    </clipPath>
+    <linearGradient id="gradient" x1="0" y1="0" x2="110%" y2="0%">
+    <stop stop-color="#fff" offset="0"></stop><stop stop-color="#fff" offset="10%"></stop>
+    <stop stop-color="#AAA" offset="10%"></stop><stop stop-color="#AAA" offset="20%"></stop>
+    <stop stop-color="#777" offset="20%"></stop><stop stop-color="#777" offset="30%"></stop>
+    <stop stop-color="#333" offset="30%"></stop><stop stop-color="#333" offset="40%"></stop>
+    <stop stop-color="#000" offset="40%"></stop><stop stop-color="#000" offset="50%"></stop>
+    <stop stop-color="#fff" offset="50%"></stop><stop stop-color="#fff" offset="60%"></stop>
+    <stop stop-color="#AAA" offset="60%"></stop><stop stop-color="#AAA" offset="70%"></stop>
+    <stop stop-color="#777" offset="70%"></stop><stop stop-color="#777" offset="80%"></stop>
+    <stop stop-color="#333" offset="80%"></stop><stop stop-color="#333" offset="90%"></stop>
+    <stop stop-color="#000" offset="90%"></stop><stop stop-color="#000" offset="100%"></stop>
+    </linearGradient>
+    <mask id="masking" maskUnits="objectBoundingBox" maskContentUnits="objectBoundingBox">
+    <rect y="0" width="1" height="1" fill="url(#gradient)"></rect>
+    <circle cx=".5" cy=".5" r=".42" fill="black"></circle>
+    <circle cx="0" cy=".5" r=".32" fill="black"></circle>
+    <circle cx="1" cy=".5" r=".32" fill="black"></circle>
+    <circle cx="0" cy=".5" r=".3" fill="gray"></circle>
+    <circle cx=".5" cy=".5" r=".4" fill="gray"></circle>
+    <circle cx="1" cy=".5" r=".3" fill="gray"></circle>
+    <circle cx="0" cy=".5" r=".25" fill="white"></circle>
+    <circle cx=".5" cy=".5" r=".35" fill="white"></circle>
+    <circle cx="1" cy=".5" r=".25" fill="white"></circle>
+    </mask> -->
+    <pattern id="pattern" patternUnits="userSpaceOnUse" width="200" height="360" viewBox="0 0 200 360" style="overflow: hidden;">
+        <image xlink:href="/img/banner.jpg" width="200" height="360"></image>
+    </pattern>
+    </defs>
+</svg>
+
+<div class="item item--svg-fill">
+    <div class="demo">
+    <svg style="width: 200px;height: 360px;">
+        <text x="0" y="1em">雅✨</text>
+    </svg>
+    </div>
+</div>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 世界的樣子取決於寧的態度 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar ">
+            <img src="/img/avatar.jpg" />
+        </div>
+        <div class="name">
+            <i>ZuGuo·Tang</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-概述"><span class="toc-text">1. 概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-方法一-创建服务"><span class="toc-text">2. 方法一(创建服务)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-方法二"><span class="toc-text">3. 方法二</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+
+        <div class="index-about-mobile">
+            <i> 世界的樣子取決於寧的態度 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        Windows下将nginx配置成服务并设置开机自启动
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2019-12-12 10:15:00</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#nginx" title="nginx">nginx</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <h3 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h3><p>一般有2种方法，推荐第二种。</p>
+<h3 id="2-方法一-创建服务"><a href="#2-方法一-创建服务" class="headerlink" title="2. 方法一(创建服务)"></a>2. 方法一(创建服务)</h3><p>我们使用Windows Service Wrapper来为nginx创建服务，为什么不使用instsrv/servany、FireDaemon或者其他办法呢？</p>
+<p>下面是网上摘录的一段话：</p>
+<blockquote>
+<p>通过 instsrv/srvany(微软官方创建服务的方法) 或者 FireDaemon 的方式(来创建 Nginx 为服务)，只是启动进程，当你想要停止它时，将关闭这个进程。但这些方式都无法关闭多余的那个 nginx.exe<br>进程。所以每次你停止/启动/重启服务都会产生一个多余的 nginx.exe 进程，不方便！</p>
+</blockquote>
+<p>从网上下载一个Windows Service Wrapper(winsw.exe)，然后复制到nginx根目录，可以随意改名字，比如我改成nginx-server.exe，然后新建一个xml文件（文件名比如和exe同名，比如我的叫nginx-server.xml），内容如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">service</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">id</span>&gt;</span>nginx<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">name</span>&gt;</span>nginx<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">description</span>&gt;</span>nginx server<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">executable</span>&gt;</span>D:\GreenSoft\nginx-1.11.8\nginx.exe<span class="tag">&lt;/<span class="name">executable</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">logpath</span>&gt;</span>D:\GreenSoft\nginx-1.11.8\server-logs\<span class="tag">&lt;/<span class="name">logpath</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">logmode</span>&gt;</span>roll<span class="tag">&lt;/<span class="name">logmode</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">depend</span>&gt;</span><span class="tag">&lt;/<span class="name">depend</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">startargument</span>&gt;</span>-p D:\GreenSoft\nginx-1.11.8<span class="tag">&lt;/<span class="name">startargument</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">stopargument</span>&gt;</span>-p D:\GreenSoft\nginx-1.11.8 -s stop<span class="tag">&lt;/<span class="name">stopargument</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">service</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>上面的logpath指的是服务的日志，记得先手动建一个server-logs文件夹，然后执行nginx-server install就会安装成功了！我一般还习惯去服务里面把它改成延迟启动：</p>
+<h3 id="3-方法二"><a href="#3-方法二" class="headerlink" title="3. 方法二"></a>3. 方法二</h3><p>方法一有一个很大的缺点，就是这种方式启动之后调用nginx -s reload命令失效，所以后来我采用了另外一种更简单的方法：</p>
+<p>发送一个nginx的快捷方式到桌面，然后把这个快捷方式移动到如下目录即可实现开机自启（注意将Administrator更改为自己的用户名）！</p>
+<p>C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup</p>
+
+        
+            <div class="donate-container">
+    <div class="donate-button">
+        <button id="donate-button">赞赏</button>
+    </div>
+    <div class="donate-img-container hide" id="donate-img-container">
+        <img id="donate-img" src="" data-src="/img/donate.png">
+        <p> 感谢鼓励 </p>
+    </div>
+</div>
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/xuan-xiao-80-6">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                        
+                            <li>
+                                <a target="_blank" href="http://weibo.com/5482298932">
+                                    <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+                                </a>
+                            </li>
+                            
+
+                                
+
+                                        
+                                            <li>
+                                                <a target="_blank" href="https://github.com/Mirror-l">
+                                                    <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+                                                </a>
+                                            </li>
+                                            
+
+                                                
+
+    </ul>
+    
+        <p>
+            <span>/</span>
+            
+                <span><a href="https://github.com/">github</a></span>
+                <span>/</span>
+                
+                <span><a href="https://spring.io/">spring</a></span>
+                <span>/</span>
+                
+                <span><a href="#">It helps SEO</a></span>
+                <span>/</span>
+                
+        </p>
+        
+            <p>
+                <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+                </span>
+                <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+                </span>
+                Created By <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

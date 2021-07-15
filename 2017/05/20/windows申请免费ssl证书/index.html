@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="ZuGuo·Tang的博客">
+    <meta name="keyword" content="Spring Cloud,micro services">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+            windows申请免费ssl证书 - ZuGuo·Tang的博客 | ZuGuo·Tang&#39;s Blog
+                
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css?v=0.0.2">
+        <link rel="stylesheet" href="/css/gitment.css">
+            <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+            <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+            <!-- ga & ba script hoook -->
+            <script></script>
+</head>
+<style>
+svg.svg-defs {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-bottom: 2em;
+    padding-bottom: 2em;
+    padding-right: 3em;
+    /* border-bottom: 1px solid #DDD; */
+    counter-increment: mylist;
+}
+.item:before {
+  content: counter(mylist);
+  position: absolute;
+  right: 0;
+  top: 0;
+  font: 2rem/1 Georgia, serif;
+  color: #EEE;
+}
+.item:after {
+  content: '';
+  display: table;
+  width: 100%;
+}
+
+.demo {
+  position: relative;
+  float: left;
+  margin-right: 30px;
+}
+.demo:before {
+  content: '';
+  display: block;
+  position: absolute;
+  z-index: -2;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: url(/img/banner.jpg) no-repeat;
+  opacity: 0;
+  transition: .7s;
+  background-size: 200px 360px;
+}
+.item:hover .demo:before {
+  opacity: .4;
+}
+
+.text {
+  padding-left: 230px;
+}
+
+.demo, #clipping-with-text, #masking text {
+    font: bold italic 5em/1.5 Georgia;
+}
+
+.item--svg-fill text {
+    fill: url(#pattern);
+}
+
+</style>
+<body>
+
+<svg class="svg-defs">
+    <defs>
+    <!-- <clipPath id="clipping">
+    <polygon points="98 153 38 185 49 118 1 70 68 61 98 1 128 61 195 70 147 118 158 185"></polygon>
+    </clipPath>
+    <clipPath id="clipping-with-text">
+    <polygon points="98 153 38 185 49 118 1 70 68 61 98 1 128 61 195 70 147 118 158 185"></polygon>
+    <text x="0" y="3.2em">Text</text>
+    </clipPath>
+    <linearGradient id="gradient" x1="0" y1="0" x2="110%" y2="0%">
+    <stop stop-color="#fff" offset="0"></stop><stop stop-color="#fff" offset="10%"></stop>
+    <stop stop-color="#AAA" offset="10%"></stop><stop stop-color="#AAA" offset="20%"></stop>
+    <stop stop-color="#777" offset="20%"></stop><stop stop-color="#777" offset="30%"></stop>
+    <stop stop-color="#333" offset="30%"></stop><stop stop-color="#333" offset="40%"></stop>
+    <stop stop-color="#000" offset="40%"></stop><stop stop-color="#000" offset="50%"></stop>
+    <stop stop-color="#fff" offset="50%"></stop><stop stop-color="#fff" offset="60%"></stop>
+    <stop stop-color="#AAA" offset="60%"></stop><stop stop-color="#AAA" offset="70%"></stop>
+    <stop stop-color="#777" offset="70%"></stop><stop stop-color="#777" offset="80%"></stop>
+    <stop stop-color="#333" offset="80%"></stop><stop stop-color="#333" offset="90%"></stop>
+    <stop stop-color="#000" offset="90%"></stop><stop stop-color="#000" offset="100%"></stop>
+    </linearGradient>
+    <mask id="masking" maskUnits="objectBoundingBox" maskContentUnits="objectBoundingBox">
+    <rect y="0" width="1" height="1" fill="url(#gradient)"></rect>
+    <circle cx=".5" cy=".5" r=".42" fill="black"></circle>
+    <circle cx="0" cy=".5" r=".32" fill="black"></circle>
+    <circle cx="1" cy=".5" r=".32" fill="black"></circle>
+    <circle cx="0" cy=".5" r=".3" fill="gray"></circle>
+    <circle cx=".5" cy=".5" r=".4" fill="gray"></circle>
+    <circle cx="1" cy=".5" r=".3" fill="gray"></circle>
+    <circle cx="0" cy=".5" r=".25" fill="white"></circle>
+    <circle cx=".5" cy=".5" r=".35" fill="white"></circle>
+    <circle cx="1" cy=".5" r=".25" fill="white"></circle>
+    </mask> -->
+    <pattern id="pattern" patternUnits="userSpaceOnUse" width="200" height="360" viewBox="0 0 200 360" style="overflow: hidden;">
+        <image xlink:href="/img/banner.jpg" width="200" height="360"></image>
+    </pattern>
+    </defs>
+</svg>
+
+<div class="item item--svg-fill">
+    <div class="demo">
+    <svg style="width: 200px;height: 360px;">
+        <text x="0" y="1em">雅✨</text>
+    </svg>
+    </div>
+</div>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 世界的樣子取決於寧的態度 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar ">
+            <img src="/img/avatar.jpg" />
+        </div>
+        <div class="name">
+            <i>ZuGuo·Tang</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#windwos-Nginx-使用-win-acme-申请免费SSL证书"><span class="toc-text">windwos    Nginx 使用 win-acme 申请免费SSL证书</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#前置知识——SSL证书"><span class="toc-text">前置知识——SSL证书</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用-win-acme-申请免费SSL证书"><span class="toc-text">使用 win-acme 申请免费SSL证书</span></a></li></ol></li></ol></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+
+        <div class="index-about-mobile">
+            <i> 世界的樣子取決於寧的態度 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        windows申请免费ssl证书
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2017-05-20 14:09:35</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#SSL" title="SSL">SSL</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <h1 id="windwos-Nginx-使用-win-acme-申请免费SSL证书"><a href="#windwos-Nginx-使用-win-acme-申请免费SSL证书" class="headerlink" title="windwos    Nginx 使用 win-acme 申请免费SSL证书"></a>windwos    Nginx 使用 win-acme 申请免费SSL证书</h1><h3 id="前置知识——SSL证书"><a href="#前置知识——SSL证书" class="headerlink" title="前置知识——SSL证书"></a>前置知识——SSL证书</h3><ol>
+<li><strong>SSL</strong></li>
+</ol>
+<p>SSL( Secure Sockets Layer  <a href="https://baike.baidu.com/item/安全套接层" target="_blank" rel="noopener">安全套接层</a>  ) 是<a href="https://baike.baidu.com/item/Netscape" target="_blank" rel="noopener">网景科技</a>研发的用以保障在Internet上数据传输的安全的技术规范。</p>
+<ol start="2">
+<li><strong>OpenSSL</strong></li>
+</ol>
+<p>简单地说,OpenSSL是SSL的一个实现,SSL只是一种规范.理论上来说,SSL这种规范是安全的,目前的技术水平很难破解,但SSL的实现就可能有些漏洞,如著名的”心脏出血”.OpenSSL还提供了一大堆强大的工具软件,强大到90%我们都用不到. </p>
+<ol start="3">
+<li><strong>证书标准</strong></li>
+</ol>
+<p>X.509 - 这是一种证书标准,主要定义了证书中应该包含哪些内容.其详情可以参考RFC5280,SSL使用的就是这种证书标准.</p>
+<ol start="4">
+<li><strong>编码格式</strong></li>
+</ol>
+<p>同样的X.509证书,可能有不同的编码格式,目前有以下两种编码格式.</p>
+<p>PEM - Privacy Enhanced Mail,打开看文本格式,以”—–BEGIN…”开头, “—–END…”结尾,内容是BASE64编码.<br>查看PEM格式证书的信息:<code>openssl x509 -in certificate.pem -text -noout</code><br>Apache和*NIX服务器偏向于使用这种编码格式.</p>
+<p>DER - Distinguished Encoding Rules,打开看是二进制格式,不可读.<br>查看DER格式证书的信息:<code>openssl x509 -in certificate.der -inform der -text -noout</code><br>Java和Windows服务器偏向于使用这种编码格式.</p>
+<ol start="5">
+<li><strong>相关的文件扩展名</strong></li>
+</ol>
+<p>这是比较误导人的地方,虽然我们已经知道有PEM和DER这两种编码格式,但文件扩展名并不一定就叫”PEM”或者”DER”,常见的扩展名除了PEM和DER还有以下这些,它们除了编码格式可能不同之外,内容也有差别,但大多数都能相互转换编码格式. </p>
+<p><strong>CRT</strong> - CRT应该是certificate的三个字母,其实还是证书的意思,常见于*NIX系统,有可能是PEM编码,也有可能是DER编码,大多数应该是PEM编码,相信你已经知道怎么辨别.</p>
+<p><strong>CER</strong> - 还是certificate,还是证书,常见于Windows系统,同样的,可能是PEM编码,也可能是DER编码,大多数应该是DER编码.</p>
+<p><strong>KEY</strong> - 通常用来存放一个公钥或者私钥,并非X.509证书,编码同样的,可能是PEM,也可能是DER.<br>查看KEY的办法:<code>openssl rsa -in mykey.key -text -noout</code><br>如果是DER格式的话,同理应该这样了:<code>openssl rsa -in mykey.key -text -noout -inform der</code></p>
+<p><strong>CSR</strong> - Certificate Signing Request,即证书签名请求,这个并不是证书,而是向权威证书颁发机构获得签名证书的申请,其核心内容是一个公钥(当然还附带了一些别的信息),在生成这个申请的时候,同时也会生成一个私钥,私钥要自己保管好.做过iOS APP的朋友都应该知道是怎么向苹果申请开发者证书的吧.<br>查看的办法:<code>openssl req -noout -text -in my.csr</code> (如果是DER格式的话照旧加上-inform der,这里不写了)</p>
+<p><strong>PFX/P12</strong> - predecessor of PKCS#12,对*nix服务器来说,一般CRT和KEY是分开存放在不同文件中的,但Windows的IIS则将它们存在一个PFX文件中,(因此这个文件包含了证书及私钥)这样会不会不安全？应该不会,PFX通常会有一个”提取密码”,你想把里面的东西读取出来的话,它就要求你提供提取密码,PFX使用的时DER编码,如何把PFX转换为PEM编码？<br><code>openssl pkcs12 -in for-iis.pfx -out for-iis.pem -nodes</code><br>这个时候会提示你输入提取代码. for-iis.pem就是可读的文本.<br>生成pfx的命令类似这样:<code>openssl pkcs12 -export -in certificate.crt -inkey privateKey.key -out certificate.pfx -certfile CACert.crt</code></p>
+<p>其中CACert.crt是CA(权威证书颁发机构)的根证书,有的话也通过-certfile参数一起带进去.这么看来,PFX其实是个证书密钥库.</p>
+<p><strong>JKS</strong> - 即Java Key Storage,这是Java的专利,跟OpenSSL关系不大,利用Java的一个叫”keytool”的工具,可以将PFX转为JKS,当然了,keytool也能直接生成JKS,不过在此就不多表了.</p>
+<ol start="6">
+<li><strong>证书编码的转换</strong></li>
+</ol>
+<p><strong>PEM转为DER</strong> <code>openssl x509 -in cert.crt -outform der -out cert.der</code></p>
+<p><strong>DER转为PEM</strong> <code>openssl x509 -in cert.crt -inform der -outform pem -out cert.pem</code></p>
+<p>(提示:要转换KEY文件也类似,只不过把x509换成rsa,要转CSR的话,把x509换成req…)</p>
+<ol start="7">
+<li><strong>获得证书</strong></li>
+</ol>
+<p><strong>向权威证书颁发机构申请证书</strong></p>
+<p>用这命令生成一个csr: <code>openssl req -newkey rsa:2048 -new -nodes -keyout my.key -out my.csr</code><br>把csr交给权威证书颁发机构,权威证书颁发机构对此进行签名,完成.保留好csr,当权威证书颁发机构颁发的证书过期的时候,你还可以用同样的csr来申请新的证书,key保持不变.</p>
+<p>**或者生成自签名的证书</p>
+<p>**<code>openssl req -newkey rsa:2048 -new -nodes -x509 -days 3650 -keyout key.pem -out cert.pem</code><br>在生成证书的过程中会要你填一堆的东西,其实真正要填的只有Common Name,通常填写你服务器的域名,如”yourcompany.com”,或者你服务器的IP地址,其它都可以留空的.<br>生产环境中还是不要使用自签的证书,否则浏览器会不认,或者如果你是企业应用的话能够强制让用户的浏览器接受你的自签证书也行.向权威机构要证书通常是要钱的,但现在也有免费的,仅仅需要一个简单的域名验证即可.有兴趣的话查查”沃通数字证书”.</p>
+<h3 id="使用-win-acme-申请免费SSL证书"><a href="#使用-win-acme-申请免费SSL证书" class="headerlink" title="使用 win-acme 申请免费SSL证书"></a>使用 win-acme 申请免费SSL证书</h3><p> 项目地址：<a href="https://github.com/PKISharp/win-acme" target="_blank" rel="noopener">https://github.com/PKISharp/win-acme</a> </p>
+<p>下载稳定版本，不要最新的，可能有BUG</p>
+<p><img src="./1553846676556293.png" alt="1553846676556293"></p>
+<p>如果服务器有iis并且开启的话可以直接“N”直接快捷创建，里面输入你网站的域名即可，域名要先提前关联上IP无脑下一步会自动把证书配置到IIS中，并且开启443端口，如果是阿里云类似的有防火墙的需要配置一下。</p>
+<p>然后如果想要找到证书相关目录，在</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">C:\<span class="title">ProgramData</span>\<span class="title">win</span>-<span class="title">acme</span>\<span class="title">acme</span>-<span class="title">v02.api.letsencrypt.org</span>\<span class="title">Certificates</span></span></span><br></pre></td></tr></table></figure>
+<p>中可以找到。另外一些内容是在读软件wiki中发现的。默认生成的证书如果在IIS中选择导出，是不能导出私钥的。</p>
+<p>如果未来有需求需要导出，需要修改软件目录下的“settings.config”找到“PrivateKeyExportable”修改下面的value为True。</p>
+<p><img src="./1553847110969497.png" alt></p>
+<p><strong>不使用IIS，使用Nginx</strong></p>
+<p>至于我的需求就很难受，因为我不是iis中使用，需要PEM文件，而生成的即使导出了也包含私钥了，还是pfx文件，如果转换的话需要openssl，又要安装其他软件。</p>
+<p>通过阅读wiki发现软件有这么一个选项</p>
+<p><img src="./1553847388828422.png" alt></p>
+<p>“DefaultPemFilesPath”这个参数通过添加值，可以生成PEM文件的证书和私钥，可以直接导入到相关程序中。方法如下：</p>
+<p>  首先我们来到主页面，点击”M”使用高级模式</p>
+<p><img src="./1553847515271943.png" alt></p>
+<p> 紧接着我们使用自定义输入名称，也没有其他选择 </p>
+<p><img src="./1553847555934545.png" alt></p>
+<p> 这个名称是域名，跟最上面写的一样，需要提前解析好紧接着我们使用“4”也就是默认的验证方法。 </p>
+<p><img src="./1553847626888932.png" alt></p>
+<p> 选择“2”使用完整的RSA </p>
+<p><img src="./1553847685205962.png" alt></p>
+<p> 注意：使用第三个，也就是生成PEM文件供其他软件使用。 </p>
+<p><img src="./1553847744341878.png" alt></p>
+<p> 这一步我选择2之后就卡住了，所以我只能选择第一个 </p>
+<p><img src="./1553847809743655.png" alt></p>
+<p>然后提示输入文件目录，会生成证书</p>
+
+        
+            <div class="donate-container">
+    <div class="donate-button">
+        <button id="donate-button">赞赏</button>
+    </div>
+    <div class="donate-img-container hide" id="donate-img-container">
+        <img id="donate-img" src="" data-src="/img/donate.png">
+        <p> 感谢鼓励 </p>
+    </div>
+</div>
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/xuan-xiao-80-6">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                        
+                            <li>
+                                <a target="_blank" href="http://weibo.com/5482298932">
+                                    <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+                                </a>
+                            </li>
+                            
+
+                                
+
+                                        
+                                            <li>
+                                                <a target="_blank" href="https://github.com/Mirror-l">
+                                                    <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+                                                </a>
+                                            </li>
+                                            
+
+                                                
+
+    </ul>
+    
+        <p>
+            <span>/</span>
+            
+                <span><a href="https://github.com/">github</a></span>
+                <span>/</span>
+                
+                <span><a href="https://spring.io/">spring</a></span>
+                <span>/</span>
+                
+                <span><a href="#">It helps SEO</a></span>
+                <span>/</span>
+                
+        </p>
+        
+            <p>
+                <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+                </span>
+                <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+                </span>
+                Created By <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="ZuGuo·Tang的博客">
+    <meta name="keyword" content="Spring Cloud,micro services">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+            正交概念 - ZuGuo·Tang的博客 | ZuGuo·Tang&#39;s Blog
+                
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css?v=0.0.2">
+        <link rel="stylesheet" href="/css/gitment.css">
+            <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+            <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+            <!-- ga & ba script hoook -->
+            <script></script>
+</head>
+<style>
+svg.svg-defs {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-bottom: 2em;
+    padding-bottom: 2em;
+    padding-right: 3em;
+    /* border-bottom: 1px solid #DDD; */
+    counter-increment: mylist;
+}
+.item:before {
+  content: counter(mylist);
+  position: absolute;
+  right: 0;
+  top: 0;
+  font: 2rem/1 Georgia, serif;
+  color: #EEE;
+}
+.item:after {
+  content: '';
+  display: table;
+  width: 100%;
+}
+
+.demo {
+  position: relative;
+  float: left;
+  margin-right: 30px;
+}
+.demo:before {
+  content: '';
+  display: block;
+  position: absolute;
+  z-index: -2;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: url(/img/banner.jpg) no-repeat;
+  opacity: 0;
+  transition: .7s;
+  background-size: 200px 360px;
+}
+.item:hover .demo:before {
+  opacity: .4;
+}
+
+.text {
+  padding-left: 230px;
+}
+
+.demo, #clipping-with-text, #masking text {
+    font: bold italic 5em/1.5 Georgia;
+}
+
+.item--svg-fill text {
+    fill: url(#pattern);
+}
+
+</style>
+<body>
+
+<svg class="svg-defs">
+    <defs>
+    <!-- <clipPath id="clipping">
+    <polygon points="98 153 38 185 49 118 1 70 68 61 98 1 128 61 195 70 147 118 158 185"></polygon>
+    </clipPath>
+    <clipPath id="clipping-with-text">
+    <polygon points="98 153 38 185 49 118 1 70 68 61 98 1 128 61 195 70 147 118 158 185"></polygon>
+    <text x="0" y="3.2em">Text</text>
+    </clipPath>
+    <linearGradient id="gradient" x1="0" y1="0" x2="110%" y2="0%">
+    <stop stop-color="#fff" offset="0"></stop><stop stop-color="#fff" offset="10%"></stop>
+    <stop stop-color="#AAA" offset="10%"></stop><stop stop-color="#AAA" offset="20%"></stop>
+    <stop stop-color="#777" offset="20%"></stop><stop stop-color="#777" offset="30%"></stop>
+    <stop stop-color="#333" offset="30%"></stop><stop stop-color="#333" offset="40%"></stop>
+    <stop stop-color="#000" offset="40%"></stop><stop stop-color="#000" offset="50%"></stop>
+    <stop stop-color="#fff" offset="50%"></stop><stop stop-color="#fff" offset="60%"></stop>
+    <stop stop-color="#AAA" offset="60%"></stop><stop stop-color="#AAA" offset="70%"></stop>
+    <stop stop-color="#777" offset="70%"></stop><stop stop-color="#777" offset="80%"></stop>
+    <stop stop-color="#333" offset="80%"></stop><stop stop-color="#333" offset="90%"></stop>
+    <stop stop-color="#000" offset="90%"></stop><stop stop-color="#000" offset="100%"></stop>
+    </linearGradient>
+    <mask id="masking" maskUnits="objectBoundingBox" maskContentUnits="objectBoundingBox">
+    <rect y="0" width="1" height="1" fill="url(#gradient)"></rect>
+    <circle cx=".5" cy=".5" r=".42" fill="black"></circle>
+    <circle cx="0" cy=".5" r=".32" fill="black"></circle>
+    <circle cx="1" cy=".5" r=".32" fill="black"></circle>
+    <circle cx="0" cy=".5" r=".3" fill="gray"></circle>
+    <circle cx=".5" cy=".5" r=".4" fill="gray"></circle>
+    <circle cx="1" cy=".5" r=".3" fill="gray"></circle>
+    <circle cx="0" cy=".5" r=".25" fill="white"></circle>
+    <circle cx=".5" cy=".5" r=".35" fill="white"></circle>
+    <circle cx="1" cy=".5" r=".25" fill="white"></circle>
+    </mask> -->
+    <pattern id="pattern" patternUnits="userSpaceOnUse" width="200" height="360" viewBox="0 0 200 360" style="overflow: hidden;">
+        <image xlink:href="/img/banner.jpg" width="200" height="360"></image>
+    </pattern>
+    </defs>
+</svg>
+
+<div class="item item--svg-fill">
+    <div class="demo">
+    <svg style="width: 200px;height: 360px;">
+        <text x="0" y="1em">雅✨</text>
+    </svg>
+    </div>
+</div>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 世界的樣子取決於寧的態度 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar ">
+            <img src="/img/avatar.jpg" />
+        </div>
+        <div class="name">
+            <i>ZuGuo·Tang</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#原则"><span class="toc-text">原则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#向量正交"><span class="toc-text">向量正交</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#函数正交"><span class="toc-text">函数正交</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#编程上的正交"><span class="toc-text">编程上的正交</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+
+        <div class="index-about-mobile">
+            <i> 世界的樣子取決於寧的態度 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        正交概念
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2019-12-09 11:05:27</span></span>
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <blockquote>
+<p>编程中，经常出现正交这个词。正交指相互独立，不可替代，并且组合起来可实现其它功能。<br>为什么相互独立，会使用正交这个词呢？<br>正交，最开始是数学术语，被引到计算机领域。正交英文是 orthogonal，本意是垂直，几何概念。线性代数中，两向量正交指它们内积为 0。而函数正交，是指两个函数相乘的积分为 0。<br>但就算知道这些，还是不明白正交是什么，数学上的正交概念跟编程上的正交概念有什么关系呢？</p>
+</blockquote>
+<h2 id="原则"><a href="#原则" class="headerlink" title="原则"></a>原则</h2><p>无论什么领域，表象都是无穷无尽的，会出现各种情形。假如出现情形 A, 就单独去研究情形 A；出现情形 B, 就单独去研究情形 B，各种情形分别去解决，根本就没有尽头。</p>
+<p>人们不会单纯研究表象，而是不断简化，最终产生几条最基本的原理，和一套基本原理的组合法则。这几条原理相互独立，不可再进行简化。假如 C 原理可以用 A、B 原理组合起来表示，这样 C 原理就不是最基本的。</p>
+<p>于是知道基本原理和组合规则，其它表象就可以归结成基本原理和基本组合法则的重复推演。这样只要研究好基本原理，研究好组合规则，其它的表象可以一大批统一地解决了。</p>
+<h2 id="向量正交"><a href="#向量正交" class="headerlink" title="向量正交"></a>向量正交</h2><p>相同的思路，应用到向量。</p>
+<p>所有的向量构成一个空间，而所有的向量是无穷无尽的。一个个向量分别分析也自然没有尽头。这样我们挑选几个相互独立的基本向量，再定义一套组合规则。这样其它的向量，就用基本向量组合起来表示。</p>
+<p>于是很自然地产生问题，基本向量是什么？如何才叫相互独立？组合规则是什么？</p>
+<p>对于向量空间，组合规则其实就是线性叠加。乘法和加法很基本，不同的领域常常会重新定义类似乘法的概念和类似加法的概念。在线性叠加中，类似乘法的概念，就是向量的内积，当内积为 0 表示两个向量相互独立。</p>
+<p>假设 A、B 为基本向量，C 可以用 A、B 叠加起来表示。于是</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">C</span> = a * A + b * B</span><br></pre></td></tr></table></figure>
+<p>两边乘以 B，得到<br><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C * <span class="keyword">B </span>= a * A * <span class="keyword">B </span>+ <span class="keyword">b </span>* <span class="keyword">B </span>* <span class="keyword">B</span></span><br></pre></td></tr></table></figure></p>
+<p>这里的乘法符号其实是内积，假如 A <em> B = 0，就可以消去第一项，系数 b 就只和 C 和 B 有关。而当 B </em> B = 1 时，可以再次简化计算过程。</p>
+<p>当将二维向量几何化后，内积为 0，两个向量刚好正交（orthogonal）。另外一个术语就是平行，跟正交对应。平行表示完全相关，正交表示完全不相关，有时会处于平行是正交之间，它们的夹角可以表示相关程度。</p>
+<p>当 A <em> B = 0 ，A、B 正交；B </em> B = 1，B 标准化，也叫归一化。当正交归一的向量，作为独立的基本向量，线性叠加成其它向量。会使得计算过程大大简化。</p>
+<h2 id="函数正交"><a href="#函数正交" class="headerlink" title="函数正交"></a>函数正交</h2><p>将相同的思路，应用到函数。</p>
+<p>所有函数构成函数空间，取一些基本的、正交的函数，再定义组合规则。每个具体领域，加法和乘法的含义有所不同。对于函数，类似于乘法的概念是积分。两函数的正交，就是相乘后积分为 0。当 f(x)、t(x) 作为基本函数，这样 k(x) 用两个函数叠加的方式来表示。</p>
+<p>k(x) = a f(x) + b t(x)<br>这时需要求出系数 a 和 b 的。可以两边先乘以 f(x), 得出，</p>
+<p>k(x) <em> f(x) = a f(x) </em> f(x) + b t(x) <em> f(x)<br>当 f(x) 和 t(x) 正交，两边取积分，就可以消去，t(x) </em> f(x)。这样系数 a 就只会跟 k(x) 和 f(x) 有关系。</p>
+<p>还可以有多个函数相互正交，甚至无限多个函数正交。比如选取 cos、sin，作为基本函数，叠加起来表示其它函数，就演变成了傅里叶变换。</p>
+<h2 id="编程上的正交"><a href="#编程上的正交" class="headerlink" title="编程上的正交"></a>编程上的正交</h2><p>从数学上引进正交这个词，用于表示指相互独立，相互间不可替代，并且可以组合起来实现其它功能。比如 if 和 for 语句是正交的，但 for 和 while 语句的功能是有重叠的。逻辑运算 not、and、or 也是正交的，其它复杂的逻辑运算都可以用这三种基本运算叠加起来。</p>
+<p>编程语言经常定义一组正交语法特性，相互间不可替代，组合起来可以其它功能。而为了更方便使用，在基础特性之上，再添加一些额外特性。这些非基本的额外特性，称为语法糖（Syntactic sugar）。语法糖对语言的功能没有太大影响，有可以，没有也可以，但有了之后，代码写起来更方便些。</p>
+
+        
+            <div class="donate-container">
+    <div class="donate-button">
+        <button id="donate-button">赞赏</button>
+    </div>
+    <div class="donate-img-container hide" id="donate-img-container">
+        <img id="donate-img" src="" data-src="/img/donate.png">
+        <p> 感谢鼓励 </p>
+    </div>
+</div>
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/xuan-xiao-80-6">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                        
+                            <li>
+                                <a target="_blank" href="http://weibo.com/5482298932">
+                                    <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+                                </a>
+                            </li>
+                            
+
+                                
+
+                                        
+                                            <li>
+                                                <a target="_blank" href="https://github.com/Mirror-l">
+                                                    <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+                                                </a>
+                                            </li>
+                                            
+
+                                                
+
+    </ul>
+    
+        <p>
+            <span>/</span>
+            
+                <span><a href="https://github.com/">github</a></span>
+                <span>/</span>
+                
+                <span><a href="https://spring.io/">spring</a></span>
+                <span>/</span>
+                
+                <span><a href="#">It helps SEO</a></span>
+                <span>/</span>
+                
+        </p>
+        
+            <p>
+                <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+                </span>
+                <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+                </span>
+                Created By <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

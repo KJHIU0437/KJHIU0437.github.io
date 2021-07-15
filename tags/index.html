@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="ZuGuo·Tang的博客">
+    <meta name="keyword" content="Spring Cloud,micro services">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+            Tags - ZuGuo·Tang的博客 | ZuGuo·Tang&#39;s Blog
+                
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css?v=0.0.2">
+        <link rel="stylesheet" href="/css/gitment.css">
+            <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+            <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+            <!-- ga & ba script hoook -->
+            <script></script>
+</head>
+<style>
+svg.svg-defs {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-bottom: 2em;
+    padding-bottom: 2em;
+    padding-right: 3em;
+    /* border-bottom: 1px solid #DDD; */
+    counter-increment: mylist;
+}
+.item:before {
+  content: counter(mylist);
+  position: absolute;
+  right: 0;
+  top: 0;
+  font: 2rem/1 Georgia, serif;
+  color: #EEE;
+}
+.item:after {
+  content: '';
+  display: table;
+  width: 100%;
+}
+
+.demo {
+  position: relative;
+  float: left;
+  margin-right: 30px;
+}
+.demo:before {
+  content: '';
+  display: block;
+  position: absolute;
+  z-index: -2;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: url(/img/banner.jpg) no-repeat;
+  opacity: 0;
+  transition: .7s;
+  background-size: 200px 360px;
+}
+.item:hover .demo:before {
+  opacity: .4;
+}
+
+.text {
+  padding-left: 230px;
+}
+
+.demo, #clipping-with-text, #masking text {
+    font: bold italic 5em/1.5 Georgia;
+}
+
+.item--svg-fill text {
+    fill: url(#pattern);
+}
+
+</style>
+<body>
+
+<svg class="svg-defs">
+    <defs>
+    <!-- <clipPath id="clipping">
+    <polygon points="98 153 38 185 49 118 1 70 68 61 98 1 128 61 195 70 147 118 158 185"></polygon>
+    </clipPath>
+    <clipPath id="clipping-with-text">
+    <polygon points="98 153 38 185 49 118 1 70 68 61 98 1 128 61 195 70 147 118 158 185"></polygon>
+    <text x="0" y="3.2em">Text</text>
+    </clipPath>
+    <linearGradient id="gradient" x1="0" y1="0" x2="110%" y2="0%">
+    <stop stop-color="#fff" offset="0"></stop><stop stop-color="#fff" offset="10%"></stop>
+    <stop stop-color="#AAA" offset="10%"></stop><stop stop-color="#AAA" offset="20%"></stop>
+    <stop stop-color="#777" offset="20%"></stop><stop stop-color="#777" offset="30%"></stop>
+    <stop stop-color="#333" offset="30%"></stop><stop stop-color="#333" offset="40%"></stop>
+    <stop stop-color="#000" offset="40%"></stop><stop stop-color="#000" offset="50%"></stop>
+    <stop stop-color="#fff" offset="50%"></stop><stop stop-color="#fff" offset="60%"></stop>
+    <stop stop-color="#AAA" offset="60%"></stop><stop stop-color="#AAA" offset="70%"></stop>
+    <stop stop-color="#777" offset="70%"></stop><stop stop-color="#777" offset="80%"></stop>
+    <stop stop-color="#333" offset="80%"></stop><stop stop-color="#333" offset="90%"></stop>
+    <stop stop-color="#000" offset="90%"></stop><stop stop-color="#000" offset="100%"></stop>
+    </linearGradient>
+    <mask id="masking" maskUnits="objectBoundingBox" maskContentUnits="objectBoundingBox">
+    <rect y="0" width="1" height="1" fill="url(#gradient)"></rect>
+    <circle cx=".5" cy=".5" r=".42" fill="black"></circle>
+    <circle cx="0" cy=".5" r=".32" fill="black"></circle>
+    <circle cx="1" cy=".5" r=".32" fill="black"></circle>
+    <circle cx="0" cy=".5" r=".3" fill="gray"></circle>
+    <circle cx=".5" cy=".5" r=".4" fill="gray"></circle>
+    <circle cx="1" cy=".5" r=".3" fill="gray"></circle>
+    <circle cx="0" cy=".5" r=".25" fill="white"></circle>
+    <circle cx=".5" cy=".5" r=".35" fill="white"></circle>
+    <circle cx="1" cy=".5" r=".25" fill="white"></circle>
+    </mask> -->
+    <pattern id="pattern" patternUnits="userSpaceOnUse" width="200" height="360" viewBox="0 0 200 360" style="overflow: hidden;">
+        <image xlink:href="/img/banner.jpg" width="200" height="360"></image>
+    </pattern>
+    </defs>
+</svg>
+
+<div class="item item--svg-fill">
+    <div class="demo">
+    <svg style="width: 200px;height: 360px;">
+        <text x="0" y="1em">雅✨</text>
+    </svg>
+    </div>
+</div>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 世界的樣子取決於寧的態度 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar ">
+            <img src="/img/avatar.jpg" />
+        </div>
+        <div class="name">
+            <i>ZuGuo·Tang</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li  class=active >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+
+        <div class="index-about-mobile">
+            <i> 世界的樣子取決於寧的態度 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        <div id='tag_cloud' class="tags">
+    
+    <a href="#java" title="java" rel="3">java</a>
+    
+    <a href="#go" title="go" rel="0">go</a>
+    
+    <a href="#consul" title="consul" rel="1">consul</a>
+    
+    <a href="#微服务" title="微服务" rel="1">微服务</a>
+    
+    <a href="#SSL" title="SSL" rel="1">SSL</a>
+    
+    <a href="#nginx" title="nginx" rel="2">nginx</a>
+    
+    <a href="#Gradle" title="Gradle" rel="1">Gradle</a>
+    
+    <a href="#Algorithms" title="Algorithms" rel="7">Algorithms</a>
+    
+    <a href="#GO" title="GO" rel="2">GO</a>
+    
+</div>
+
+<!-- 标签列表 -->
+
+
+<div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="java">
+                    <span class="tag-text">java</span>
+                </span>
+    
+    <!-- <li class="listing-item">
+    <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+    <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+    </li> -->
+    <div class="post-preview">
+        <a href="/2016/10/24/Java运算符优先级表/">
+            <h2 class="post-title">
+                Java运算符优先级表
+            </h2>
+            
+        </a>
+        <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+    </div>
+    
+    <!-- <li class="listing-item">
+    <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+    <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+    </li> -->
+    <div class="post-preview">
+        <a href="/2018/12/03/java-keytool-创建-jks-证书/">
+            <h2 class="post-title">
+                java keytool 创建 jks 证书
+            </h2>
+            
+        </a>
+        <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+    </div>
+    
+    <!-- <li class="listing-item">
+    <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+    <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+    </li> -->
+    <div class="post-preview">
+        <a href="/2016/11/01/Java实现二叉搜索树算法（BST）/">
+            <h2 class="post-title">
+                Java实现二叉搜索树算法（BST）
+            </h2>
+            
+        </a>
+        <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+    </div>
+    
+</div>
+
+<div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="go">
+                    <span class="tag-text">go</span>
+                </span>
+    
+</div>
+
+<div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="consul">
+                    <span class="tag-text">consul</span>
+                </span>
+    
+    <!-- <li class="listing-item">
+    <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+    <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+    </li> -->
+    <div class="post-preview">
+        <a href="/2019/12/05/consul学习笔记/">
+            <h2 class="post-title">
+                consul学习笔记
+            </h2>
+            
+        </a>
+        <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+    </div>
+    
+</div>
+
+<div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="微服务">
+                    <span class="tag-text">微服务</span>
+                </span>
+    
+    <!-- <li class="listing-item">
+    <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+    <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+    </li> -->
+    <div class="post-preview">
+        <a href="/2019/12/09/raft一致性协议详解/">
+            <h2 class="post-title">
+                raft一致性协议详解
+            </h2>
+            
+        </a>
+        <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+    </div>
+    
+</div>
+
+<div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="SSL">
+                    <span class="tag-text">SSL</span>
+                </span>
+    
+    <!-- <li class="listing-item">
+    <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+    <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+    </li> -->
+    <div class="post-preview">
+        <a href="/2017/05/20/windows申请免费ssl证书/">
+            <h2 class="post-title">
+                windows申请免费ssl证书
+            </h2>
+            
+        </a>
+        <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+    </div>
+    
+</div>
+
+<div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="nginx">
+                    <span class="tag-text">nginx</span>
+                </span>
+    
+    <!-- <li class="listing-item">
+    <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+    <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+    </li> -->
+    <div class="post-preview">
+        <a href="/2019/12/12/Windows下将nginx配置成服务并设置开机自启动/">
+            <h2 class="post-title">
+                Windows下将nginx配置成服务并设置开机自启动
+            </h2>
+            
+        </a>
+        <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+    </div>
+    
+    <!-- <li class="listing-item">
+    <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+    <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+    </li> -->
+    <div class="post-preview">
+        <a href="/2019/12/13/nginx缓存设置与浏览器缓存机制/">
+            <h2 class="post-title">
+                nginx缓存设置与浏览器缓存机制
+            </h2>
+            
+        </a>
+        <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+    </div>
+    
+</div>
+
+<div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="Gradle">
+                    <span class="tag-text">Gradle</span>
+                </span>
+    
+    <!-- <li class="listing-item">
+    <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+    <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+    </li> -->
+    <div class="post-preview">
+        <a href="/2018/11/30/gradle快速指南/">
+            <h2 class="post-title">
+                Gradle快速指南
+            </h2>
+            
+        </a>
+        <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+    </div>
+    
+</div>
+
+<div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="Algorithms">
+                    <span class="tag-text">Algorithms</span>
+                </span>
+    
+    <!-- <li class="listing-item">
+    <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+    <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+    </li> -->
+    <div class="post-preview">
+        <a href="/2016/05/29/算法分析（一）——渐进分析/">
+            <h2 class="post-title">
+                算法分析（一）——渐进分析
+            </h2>
+            
+        </a>
+        <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+    </div>
+    
+    <!-- <li class="listing-item">
+    <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+    <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+    </li> -->
+    <div class="post-preview">
+        <a href="/2016/06/02/算法分析（二）——最坏、平均和最好的情况/">
+            <h2 class="post-title">
+                算法分析（二）——最坏、平均和最好的情况
+            </h2>
+            
+        </a>
+        <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+    </div>
+    
+    <!-- <li class="listing-item">
+    <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+    <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+    </li> -->
+    <div class="post-preview">
+        <a href="/2016/07/09/算法分析（三）——渐进表示法/">
+            <h2 class="post-title">
+                算法分析（三）——渐进表示法
+            </h2>
+            
+        </a>
+        <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+    </div>
+    
+    <!-- <li class="listing-item">
+    <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+    <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+    </li> -->
+    <div class="post-preview">
+        <a href="/2016/09/29/算法分析（四）——解递归式/">
+            <h2 class="post-title">
+                算法分析（四）——解递归式
+            </h2>
+            
+        </a>
+        <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+    </div>
+    
+    <!-- <li class="listing-item">
+    <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+    <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+    </li> -->
+    <div class="post-preview">
+        <a href="/2016/10/14/算法分析（五）——平摊分析介绍/">
+            <h2 class="post-title">
+                算法分析（五）——平摊分析介绍
+            </h2>
+            
+        </a>
+        <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+    </div>
+    
+    <!-- <li class="listing-item">
+    <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+    <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+    </li> -->
+    <div class="post-preview">
+        <a href="/2016/08/20/算法分析（四）——分析循环/">
+            <h2 class="post-title">
+                算法分析（四）——分析循环
+            </h2>
+            
+        </a>
+        <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+    </div>
+    
+    <!-- <li class="listing-item">
+    <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+    <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+    </li> -->
+    <div class="post-preview">
+        <a href="/2016/11/01/Java实现二叉搜索树算法（BST）/">
+            <h2 class="post-title">
+                Java实现二叉搜索树算法（BST）
+            </h2>
+            
+        </a>
+        <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+    </div>
+    
+</div>
+
+<div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="GO">
+                    <span class="tag-text">GO</span>
+                </span>
+    
+    <!-- <li class="listing-item">
+    <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+    <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+    </li> -->
+    <div class="post-preview">
+        <a href="/2019/12/10/go入门/">
+            <h2 class="post-title">
+                go入门
+            </h2>
+            
+        </a>
+        <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+    </div>
+    
+    <!-- <li class="listing-item">
+    <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+    <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+    </li> -->
+    <div class="post-preview">
+        <a href="/2019/12/17/Go-的包管理方式/">
+            <h2 class="post-title">
+                Go 的包管理方式
+            </h2>
+            
+        </a>
+        <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+    </div>
+    
+</div>
+
+
+    </div>
+</div>
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/xuan-xiao-80-6">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                        
+                            <li>
+                                <a target="_blank" href="http://weibo.com/5482298932">
+                                    <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+                                </a>
+                            </li>
+                            
+
+                                
+
+                                        
+                                            <li>
+                                                <a target="_blank" href="https://github.com/Mirror-l">
+                                                    <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+                                                </a>
+                                            </li>
+                                            
+
+                                                
+
+    </ul>
+    
+        <p>
+            <span>/</span>
+            
+                <span><a href="https://github.com/">github</a></span>
+                <span>/</span>
+                
+                <span><a href="https://spring.io/">spring</a></span>
+                <span>/</span>
+                
+                <span><a href="#">It helps SEO</a></span>
+                <span>/</span>
+                
+        </p>
+        
+            <p>
+                <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+                </span>
+                <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+                </span>
+                Created By <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = false
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

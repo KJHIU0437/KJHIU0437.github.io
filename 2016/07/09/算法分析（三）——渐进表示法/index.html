@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="ZuGuo·Tang的博客">
+    <meta name="keyword" content="Spring Cloud,micro services">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+            算法分析（三）——渐进表示法 - ZuGuo·Tang的博客 | ZuGuo·Tang&#39;s Blog
+                
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css?v=0.0.2">
+        <link rel="stylesheet" href="/css/gitment.css">
+            <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+            <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+            <!-- ga & ba script hoook -->
+            <script></script>
+</head>
+<style>
+svg.svg-defs {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-bottom: 2em;
+    padding-bottom: 2em;
+    padding-right: 3em;
+    /* border-bottom: 1px solid #DDD; */
+    counter-increment: mylist;
+}
+.item:before {
+  content: counter(mylist);
+  position: absolute;
+  right: 0;
+  top: 0;
+  font: 2rem/1 Georgia, serif;
+  color: #EEE;
+}
+.item:after {
+  content: '';
+  display: table;
+  width: 100%;
+}
+
+.demo {
+  position: relative;
+  float: left;
+  margin-right: 30px;
+}
+.demo:before {
+  content: '';
+  display: block;
+  position: absolute;
+  z-index: -2;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: url(/img/banner.jpg) no-repeat;
+  opacity: 0;
+  transition: .7s;
+  background-size: 200px 360px;
+}
+.item:hover .demo:before {
+  opacity: .4;
+}
+
+.text {
+  padding-left: 230px;
+}
+
+.demo, #clipping-with-text, #masking text {
+    font: bold italic 5em/1.5 Georgia;
+}
+
+.item--svg-fill text {
+    fill: url(#pattern);
+}
+
+</style>
+<body>
+
+<svg class="svg-defs">
+    <defs>
+    <!-- <clipPath id="clipping">
+    <polygon points="98 153 38 185 49 118 1 70 68 61 98 1 128 61 195 70 147 118 158 185"></polygon>
+    </clipPath>
+    <clipPath id="clipping-with-text">
+    <polygon points="98 153 38 185 49 118 1 70 68 61 98 1 128 61 195 70 147 118 158 185"></polygon>
+    <text x="0" y="3.2em">Text</text>
+    </clipPath>
+    <linearGradient id="gradient" x1="0" y1="0" x2="110%" y2="0%">
+    <stop stop-color="#fff" offset="0"></stop><stop stop-color="#fff" offset="10%"></stop>
+    <stop stop-color="#AAA" offset="10%"></stop><stop stop-color="#AAA" offset="20%"></stop>
+    <stop stop-color="#777" offset="20%"></stop><stop stop-color="#777" offset="30%"></stop>
+    <stop stop-color="#333" offset="30%"></stop><stop stop-color="#333" offset="40%"></stop>
+    <stop stop-color="#000" offset="40%"></stop><stop stop-color="#000" offset="50%"></stop>
+    <stop stop-color="#fff" offset="50%"></stop><stop stop-color="#fff" offset="60%"></stop>
+    <stop stop-color="#AAA" offset="60%"></stop><stop stop-color="#AAA" offset="70%"></stop>
+    <stop stop-color="#777" offset="70%"></stop><stop stop-color="#777" offset="80%"></stop>
+    <stop stop-color="#333" offset="80%"></stop><stop stop-color="#333" offset="90%"></stop>
+    <stop stop-color="#000" offset="90%"></stop><stop stop-color="#000" offset="100%"></stop>
+    </linearGradient>
+    <mask id="masking" maskUnits="objectBoundingBox" maskContentUnits="objectBoundingBox">
+    <rect y="0" width="1" height="1" fill="url(#gradient)"></rect>
+    <circle cx=".5" cy=".5" r=".42" fill="black"></circle>
+    <circle cx="0" cy=".5" r=".32" fill="black"></circle>
+    <circle cx="1" cy=".5" r=".32" fill="black"></circle>
+    <circle cx="0" cy=".5" r=".3" fill="gray"></circle>
+    <circle cx=".5" cy=".5" r=".4" fill="gray"></circle>
+    <circle cx="1" cy=".5" r=".3" fill="gray"></circle>
+    <circle cx="0" cy=".5" r=".25" fill="white"></circle>
+    <circle cx=".5" cy=".5" r=".35" fill="white"></circle>
+    <circle cx="1" cy=".5" r=".25" fill="white"></circle>
+    </mask> -->
+    <pattern id="pattern" patternUnits="userSpaceOnUse" width="200" height="360" viewBox="0 0 200 360" style="overflow: hidden;">
+        <image xlink:href="/img/banner.jpg" width="200" height="360"></image>
+    </pattern>
+    </defs>
+</svg>
+
+<div class="item item--svg-fill">
+    <div class="demo">
+    <svg style="width: 200px;height: 360px;">
+        <text x="0" y="1em">雅✨</text>
+    </svg>
+    </div>
+</div>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 世界的樣子取決於寧的態度 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar ">
+            <img src="/img/avatar.jpg" />
+        </div>
+        <div class="name">
+            <i>ZuGuo·Tang</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Θ符号"><span class="toc-text">Θ符号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#大O符号"><span class="toc-text">大O符号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Ω符号"><span class="toc-text">Ω符号</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+
+        <div class="index-about-mobile">
+            <i> 世界的樣子取決於寧的態度 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        算法分析（三）——渐进表示法
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2016-07-09 10:03:04</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#Algorithms" title="Algorithms">Algorithms</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <blockquote>
+<p>我们已经讨论了渐近分析、最坏情况、平均情况和最佳情况的算法。渐近分析的主要思想是度量算法的效率，它不依赖于机器特定的常数，不需要实现算法，也不需要比较程序所花费的时间。渐近符号是表示渐近分析算法时间复杂度的数学工具。下面三种渐近符号是用来表示算法的时间复杂度的。</p>
+</blockquote>
+<p><img src="./AlgoAnalysis-1.png" style="width:30%;height:30%;float:right;"></p>
+<h3 id="Θ符号"><a href="#Θ符号" class="headerlink" title="Θ符号"></a>Θ符号</h3><p><strong>Θ符号</strong>:θ符号从上到下界定了一个函数，所以它定义了确切的渐近行为。<br>得到表达式符号的一个简单方法是去掉低阶项，忽略前置常数。例如，考虑下面的表达式。<br>3 n<sup>3</sup> + 6 n<sup>2</sup> + 6000 =Θ(n<sup>3</sup>)<br>把低阶项总是很好,因为总是会有n0之后Θ(n<sup>3</sup>)值高于Θn<sup>3</sup>)无关的常数。<br>对于一个给定的函数g (n),我们表示Θ(g (n))是后组功能。</p>
+<figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Θ(g(<span class="built_in">n</span>)) = &#123;f(<span class="built_in">n</span>)<span class="symbol">:</span> there exist positive constants <span class="symbol">c1</span>, <span class="symbol">c2</span> <span class="built_in">and</span> <span class="symbol">n0</span> such </span><br><span class="line">                 that <span class="number">0</span> &lt;= <span class="symbol">c1</span>*g(<span class="built_in">n</span>) &lt;= f(<span class="built_in">n</span>) &lt;= <span class="symbol">c2</span>*g(<span class="built_in">n</span>) for all <span class="built_in">n</span> &gt;= <span class="symbol">n0</span>&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的定义意味着，如果f(n)是Θ(g(n))，那么对于n (n &gt;= n0)较大的值，f(n)总是在c1<em>g(n)和c2</em>g(n)之间。的定义还要求当n大于n0时，f(n)必须是非负的。</p>
+<p><img src="./AlgoAnalysis-2.png" style="width:30%;height:30%;float:right;"></p>
+<h3 id="大O符号"><a href="#大O符号" class="headerlink" title="大O符号"></a>大O符号</h3><p><strong>大O符号</strong>:大O符号定义了一个算法的上界，它只从上面限定一个函数。例如，考虑插入排序的情况。最好的情况是线性时间最坏的情况是二次时间。我们可以有把握地说插入排序的时间复杂度是O(n^2)。注意，O(n²)也包括线性时间。<br>如果我们使用Θ符号来表示插入排序的时间复杂度,我们必须使用两个语句最好和最差情况下:</p>
+<ol>
+<li>最坏的情况下插入排序的时间复杂度是Θ(n ^ 2)。</li>
+<li>最好的情况下插入排序的时间复杂度是Θ(n)。</li>
+</ol>
+<p>当我们只有算法时间复杂度的上界时，大O符号是有用的。很多时候，我们很容易通过简单的算法找到一个上界。</p>
+<figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">O(g(<span class="built_in">n</span>)) = &#123; f(<span class="built_in">n</span>)<span class="symbol">:</span> there exist positive constants c <span class="built_in">and</span> </span><br><span class="line">                  <span class="symbol">n0</span> such that <span class="number">0</span> &lt;= f(<span class="built_in">n</span>) &lt;= c*g(<span class="built_in">n</span>) for </span><br><span class="line">                  all <span class="built_in">n</span> &gt;= <span class="symbol">n0</span>&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="./AlgoAnalysis-3.png" style="width:30%;height:30%;float:right;"></p>
+<h3 id="Ω符号"><a href="#Ω符号" class="headerlink" title="Ω符号"></a>Ω符号</h3><p><strong>Ω符号</strong>:正如大O符号功能,提供了一个渐近上限Ω符号提供了一个渐近下界。<br>Ω符号可以是有用的,当我们对一个算法的时间复杂度有下界。正如在前一篇文章中所讨论的，算法的最佳性能通常是无用的，Omega表示法是这三种表示法中使用最少的。</p>
+<p>对于一个给定的函数g (n),我们表示Ω(g (n))的一组功能。</p>
+<figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Ω (g(<span class="built_in">n</span>)) = &#123;f(<span class="built_in">n</span>)<span class="symbol">:</span> there exist positive constants c <span class="built_in">and</span></span><br><span class="line">                  <span class="symbol">n0</span> such that <span class="number">0</span> &lt;= c*g(<span class="built_in">n</span>) &lt;= f(<span class="built_in">n</span>) for</span><br><span class="line">                  all <span class="built_in">n</span> &gt;= <span class="symbol">n0</span>&#125;.</span><br></pre></td></tr></table></figure>
+<p>让我们考虑这里相同的插入排序示例。插入排序的时间复杂度可以写成Ω(n),但它不是一个非常有用的信息插入排序,我们通常感兴趣的最坏情况,有时在平均情况下。</p>
+
+        
+            <div class="donate-container">
+    <div class="donate-button">
+        <button id="donate-button">赞赏</button>
+    </div>
+    <div class="donate-img-container hide" id="donate-img-container">
+        <img id="donate-img" src="" data-src="/img/donate.png">
+        <p> 感谢鼓励 </p>
+    </div>
+</div>
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/xuan-xiao-80-6">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                        
+                            <li>
+                                <a target="_blank" href="http://weibo.com/5482298932">
+                                    <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+                                </a>
+                            </li>
+                            
+
+                                
+
+                                        
+                                            <li>
+                                                <a target="_blank" href="https://github.com/Mirror-l">
+                                                    <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+                                                </a>
+                                            </li>
+                                            
+
+                                                
+
+    </ul>
+    
+        <p>
+            <span>/</span>
+            
+                <span><a href="https://github.com/">github</a></span>
+                <span>/</span>
+                
+                <span><a href="https://spring.io/">spring</a></span>
+                <span>/</span>
+                
+                <span><a href="#">It helps SEO</a></span>
+                <span>/</span>
+                
+        </p>
+        
+            <p>
+                <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+                </span>
+                <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+                </span>
+                Created By <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

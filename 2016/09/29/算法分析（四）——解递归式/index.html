@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="ZuGuo·Tang的博客">
+    <meta name="keyword" content="Spring Cloud,micro services">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+            算法分析（四）——解递归式 - ZuGuo·Tang的博客 | ZuGuo·Tang&#39;s Blog
+                
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css?v=0.0.2">
+        <link rel="stylesheet" href="/css/gitment.css">
+            <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+            <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+            <!-- ga & ba script hoook -->
+            <script></script>
+</head>
+<style>
+svg.svg-defs {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-bottom: 2em;
+    padding-bottom: 2em;
+    padding-right: 3em;
+    /* border-bottom: 1px solid #DDD; */
+    counter-increment: mylist;
+}
+.item:before {
+  content: counter(mylist);
+  position: absolute;
+  right: 0;
+  top: 0;
+  font: 2rem/1 Georgia, serif;
+  color: #EEE;
+}
+.item:after {
+  content: '';
+  display: table;
+  width: 100%;
+}
+
+.demo {
+  position: relative;
+  float: left;
+  margin-right: 30px;
+}
+.demo:before {
+  content: '';
+  display: block;
+  position: absolute;
+  z-index: -2;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: url(/img/banner.jpg) no-repeat;
+  opacity: 0;
+  transition: .7s;
+  background-size: 200px 360px;
+}
+.item:hover .demo:before {
+  opacity: .4;
+}
+
+.text {
+  padding-left: 230px;
+}
+
+.demo, #clipping-with-text, #masking text {
+    font: bold italic 5em/1.5 Georgia;
+}
+
+.item--svg-fill text {
+    fill: url(#pattern);
+}
+
+</style>
+<body>
+
+<svg class="svg-defs">
+    <defs>
+    <!-- <clipPath id="clipping">
+    <polygon points="98 153 38 185 49 118 1 70 68 61 98 1 128 61 195 70 147 118 158 185"></polygon>
+    </clipPath>
+    <clipPath id="clipping-with-text">
+    <polygon points="98 153 38 185 49 118 1 70 68 61 98 1 128 61 195 70 147 118 158 185"></polygon>
+    <text x="0" y="3.2em">Text</text>
+    </clipPath>
+    <linearGradient id="gradient" x1="0" y1="0" x2="110%" y2="0%">
+    <stop stop-color="#fff" offset="0"></stop><stop stop-color="#fff" offset="10%"></stop>
+    <stop stop-color="#AAA" offset="10%"></stop><stop stop-color="#AAA" offset="20%"></stop>
+    <stop stop-color="#777" offset="20%"></stop><stop stop-color="#777" offset="30%"></stop>
+    <stop stop-color="#333" offset="30%"></stop><stop stop-color="#333" offset="40%"></stop>
+    <stop stop-color="#000" offset="40%"></stop><stop stop-color="#000" offset="50%"></stop>
+    <stop stop-color="#fff" offset="50%"></stop><stop stop-color="#fff" offset="60%"></stop>
+    <stop stop-color="#AAA" offset="60%"></stop><stop stop-color="#AAA" offset="70%"></stop>
+    <stop stop-color="#777" offset="70%"></stop><stop stop-color="#777" offset="80%"></stop>
+    <stop stop-color="#333" offset="80%"></stop><stop stop-color="#333" offset="90%"></stop>
+    <stop stop-color="#000" offset="90%"></stop><stop stop-color="#000" offset="100%"></stop>
+    </linearGradient>
+    <mask id="masking" maskUnits="objectBoundingBox" maskContentUnits="objectBoundingBox">
+    <rect y="0" width="1" height="1" fill="url(#gradient)"></rect>
+    <circle cx=".5" cy=".5" r=".42" fill="black"></circle>
+    <circle cx="0" cy=".5" r=".32" fill="black"></circle>
+    <circle cx="1" cy=".5" r=".32" fill="black"></circle>
+    <circle cx="0" cy=".5" r=".3" fill="gray"></circle>
+    <circle cx=".5" cy=".5" r=".4" fill="gray"></circle>
+    <circle cx="1" cy=".5" r=".3" fill="gray"></circle>
+    <circle cx="0" cy=".5" r=".25" fill="white"></circle>
+    <circle cx=".5" cy=".5" r=".35" fill="white"></circle>
+    <circle cx="1" cy=".5" r=".25" fill="white"></circle>
+    </mask> -->
+    <pattern id="pattern" patternUnits="userSpaceOnUse" width="200" height="360" viewBox="0 0 200 360" style="overflow: hidden;">
+        <image xlink:href="/img/banner.jpg" width="200" height="360"></image>
+    </pattern>
+    </defs>
+</svg>
+
+<div class="item item--svg-fill">
+    <div class="demo">
+    <svg style="width: 200px;height: 360px;">
+        <text x="0" y="1em">雅✨</text>
+    </svg>
+    </div>
+</div>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 世界的樣子取決於寧的態度 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar ">
+            <img src="/img/avatar.jpg" />
+        </div>
+        <div class="name">
+            <i>ZuGuo·Tang</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-代换法"><span class="toc-text">1)代换法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-递归树法"><span class="toc-text">2)递归树法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-套用公式法"><span class="toc-text">3)套用公式法:</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#这是怎么做到的呢"><span class="toc-text">这是怎么做到的呢?</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#一些标准算法的例子，它们的时间复杂度可以用套用公式法来评估"><span class="toc-text">一些标准算法的例子，它们的时间复杂度可以用套用公式法来评估</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#注意"><span class="toc-text">注意</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+
+        <div class="index-about-mobile">
+            <i> 世界的樣子取決於寧的態度 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        算法分析（四）——解递归式
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2016-09-29 15:54:47</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#Algorithms" title="Algorithms">Algorithms</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <blockquote>
+<p>在前一篇文章中，我们讨论了循环的分析。许多算法本质上是递归的。当我们分析它们时，我们得到了时间复杂度的递归关系。我们得到运行时间对于大小为n的输入是n的函数，对于较小的输入是运行时间。例如，在归并排序中，为了对给定的数组进行排序，我们将它分成两半，然后递归地重复这一过程。最后我们合并结果。归并排序的时间复杂度可以写成T(n) = 2T(n/2) + cn。还有许多其他的算法，如二分查找、汉诺塔等。</p>
+</blockquote>
+<p>解递归主要有三种方法。</p>
+<h3 id="1-代换法"><a href="#1-代换法" class="headerlink" title="1)代换法"></a>1)代换法</h3><p>先对解进行猜测，然后用数学归纳法来证明猜测的正确与否。</p>
+<figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">For example consider the recurrence <span class="built_in">T</span>(<span class="built_in">n</span>) = <span class="number">2</span><span class="built_in">T</span>(<span class="built_in">n</span>/<span class="number">2</span>) + <span class="built_in">n</span></span><br><span class="line"></span><br><span class="line">We guess the solution as <span class="built_in">T</span>(<span class="built_in">n</span>) = O(nLogn). <span class="built_in">Now</span> we use induction</span><br><span class="line">to prove our guess.</span><br><span class="line"></span><br><span class="line">We need to prove that <span class="built_in">T</span>(<span class="built_in">n</span>) &lt;= cnLogn. We can assume that it is <span class="built_in">true</span></span><br><span class="line">for values smaller than n.</span><br><span class="line"></span><br><span class="line"><span class="built_in">T</span>(<span class="built_in">n</span>) = <span class="number">2</span><span class="built_in">T</span>(<span class="built_in">n</span>/<span class="number">2</span>) + <span class="built_in">n</span></span><br><span class="line">    &lt;= cn/<span class="number">2</span><span class="built_in">Log</span>(<span class="built_in">n</span>/<span class="number">2</span>) + <span class="built_in">n</span></span><br><span class="line">    =  cnLogn - cnLog2 + <span class="built_in">n</span></span><br><span class="line">    =  cnLogn - cn + <span class="built_in">n</span></span><br><span class="line">    &lt;= cnLogn</span><br></pre></td></tr></table></figure>
+<h3 id="2-递归树法"><a href="#2-递归树法" class="headerlink" title="2)递归树法"></a>2)递归树法</h3><p>在此方法中，我们绘制递归树，计算树的每一层所花费的时间。最后，我们总结了各级所做的工作。为了绘制递归树，我们从给定的递归树开始，不断地绘制，直到找到层次之间的模式。模式通常是一个算术或几何级数。</p>
+<figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">For example consider the recurrence relation </span><br><span class="line"><span class="built_in">T</span>(<span class="built_in">n</span>) = <span class="built_in">T</span>(<span class="built_in">n</span>/<span class="number">4</span>) + <span class="built_in">T</span>(<span class="built_in">n</span>/<span class="number">2</span>) + <span class="symbol">cn2</span></span><br><span class="line"><span class="symbol"></span></span><br><span class="line"><span class="symbol"></span>           <span class="symbol">cn2</span></span><br><span class="line"><span class="symbol"></span>         /      \</span><br><span class="line">     <span class="built_in">T</span>(<span class="built_in">n</span>/<span class="number">4</span>)     <span class="built_in">T</span>(<span class="built_in">n</span>/<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">If</span> we further break down the expression <span class="built_in">T</span>(<span class="built_in">n</span>/<span class="number">4</span>) <span class="built_in">and</span> <span class="built_in">T</span>(<span class="built_in">n</span>/<span class="number">2</span>), </span><br><span class="line">we get following recursion tree.</span><br><span class="line"></span><br><span class="line">                <span class="symbol">cn2</span></span><br><span class="line"><span class="symbol"></span>           /           \      </span><br><span class="line">       c(<span class="symbol">n2</span>)/<span class="number">16</span>      c(<span class="symbol">n2</span>)/<span class="number">4</span></span><br><span class="line">      /      \          /     \</span><br><span class="line">  <span class="built_in">T</span>(<span class="built_in">n</span>/<span class="number">16</span>)     <span class="built_in">T</span>(<span class="built_in">n</span>/<span class="number">8</span>)  <span class="built_in">T</span>(<span class="built_in">n</span>/<span class="number">8</span>)    <span class="built_in">T</span>(<span class="built_in">n</span>/<span class="number">4</span>) </span><br><span class="line">Breaking down further gives us following</span><br><span class="line">                 <span class="symbol">cn2</span></span><br><span class="line"><span class="symbol"></span>            /            \      </span><br><span class="line">       c(<span class="symbol">n2</span>)/<span class="number">16</span>          c(<span class="symbol">n2</span>)/<span class="number">4</span></span><br><span class="line">       /      \            /      \</span><br><span class="line">c(<span class="symbol">n2</span>)/<span class="number">256</span>   c(<span class="symbol">n2</span>)/<span class="number">64</span>  c(<span class="symbol">n2</span>)/<span class="number">64</span>    c(<span class="symbol">n2</span>)/<span class="number">16</span></span><br><span class="line"> /    \      /    \    /    \       /    \  </span><br><span class="line"></span><br><span class="line">To know the <span class="built_in">value</span> of <span class="built_in">T</span>(<span class="built_in">n</span>), we need to calculate <span class="built_in">sum</span> of tree </span><br><span class="line">nodes level by level. <span class="built_in">If</span> we <span class="built_in">sum</span> the above tree level by level, </span><br><span class="line">we get the following series</span><br><span class="line"><span class="built_in">T</span>(<span class="built_in">n</span>)  = c(<span class="built_in">n</span>^<span class="number">2</span> + <span class="number">5</span>(<span class="built_in">n</span>^<span class="number">2</span>)/<span class="number">16</span> + <span class="number">25</span>(<span class="built_in">n</span>^<span class="number">2</span>)/<span class="number">256</span>) + ....</span><br><span class="line">The above series is geometrical progression with ratio <span class="number">5</span>/<span class="number">16</span>.</span><br><span class="line"></span><br><span class="line">To get an <span class="built_in">upper</span> bound, we can <span class="built_in">sum</span> the infinite series. </span><br><span class="line">We get the <span class="built_in">sum</span> as (<span class="symbol">n2</span>)/(<span class="number">1</span> - <span class="number">5</span>/<span class="number">16</span>) which is O(<span class="symbol">n2</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="3-套用公式法"><a href="#3-套用公式法" class="headerlink" title="3)套用公式法:"></a>3)套用公式法:</h3><p>主方法是求解的直接方法。主方法只适用于以下类型的递归或可转换为以下类型的递归。</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">T(<span class="name">n</span>) = aT(<span class="name">n/b</span>) + f(<span class="name">n</span>) where a &gt;= <span class="number">1</span> and b &gt; <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>有以下三种情况:</p>
+<ol>
+<li><p>If f(n) = Θ(n<sup>c</sup>) where c &lt; Log<sub>b</sub>a then T(n) = Θ(n<sup>Log<sub>b</sub>a</sup>)</p>
+</li>
+<li><p>If f(n) = Θ(n<sup>c</sup>) where c = Log<sub>b</sub>a then T(n) = Θ(n<sup>c</sup>Log n)</p>
+</li>
+<li><p>If f(n) = Θ(n<sup>c</sup>) where c &gt; Log<sub>b</sub>a then T(n) = Θ(f(n))</p>
+</li>
+</ol>
+<h4 id="这是怎么做到的呢"><a href="#这是怎么做到的呢" class="headerlink" title="这是怎么做到的呢?"></a>这是怎么做到的呢?</h4><p>套用公式法主要来源于递归树法。如果我们画递归树的T (n) = (n / b) + f (n),我们可以看到,在根所做的工作是f (n)和工作在所有的树叶都是Θc Logba (n<sup>c</sup>)。递归树的高度是Log<sub>b</sub>n</p>
+<p><img src="./AlgoAnalysis.png" style="width:70%;height:70%;"></p>
+<p>在递归树法中，我们计算所做的总功。如果工作在叶子多项式,然后叶子是占主导地位的一部分,我们的结果成为了工作在叶子(情况1)。如果工作在叶子和根是一样渐近,那么结果就变得高度乘以各级工作(例2)。如果工作根多是渐近,那么结果就是工作在根(例3)。</p>
+<h4 id="一些标准算法的例子，它们的时间复杂度可以用套用公式法来评估"><a href="#一些标准算法的例子，它们的时间复杂度可以用套用公式法来评估" class="headerlink" title="一些标准算法的例子，它们的时间复杂度可以用套用公式法来评估"></a>一些标准算法的例子，它们的时间复杂度可以用套用公式法来评估</h4><p><strong>归并排序</strong>:T (n) = 2 T (n / 2) +Θ(n)。它落在情形2中，因为c是1,Logba也是1。因此,解决方案是Θ(n Logn)</p>
+<p><strong>二进制搜索</strong>:T (n) = T (n / 2) +Θ(1)。当c等于0 Logba也等于0时，它也落在情形2中。所以解决方法是Θ(Logn)</p>
+<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><p>1) 用主定理求解T(n) = aT(n/b) + f(n)的递归式是不必要的。给定的三种情况之间有一些差距。例如，递归T(n) = 2T(n/2) + n/Logn不能用主方法求解。</p>
+<p>2) 第二种情况可以扩展f (n) =Θ(n<sup>c</sup>Log<sup>k</sup>n)<br>如果f (n) =Θ(n<sup>c</sup>Log<sup>k</sup>n)常数k &gt; = 0和c = Logba,然后T (n) =Θ(n<sup>c</sup>Log<sup>k + 1</sup> n)</p>
+
+        
+            <div class="donate-container">
+    <div class="donate-button">
+        <button id="donate-button">赞赏</button>
+    </div>
+    <div class="donate-img-container hide" id="donate-img-container">
+        <img id="donate-img" src="" data-src="/img/donate.png">
+        <p> 感谢鼓励 </p>
+    </div>
+</div>
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/xuan-xiao-80-6">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                        
+                            <li>
+                                <a target="_blank" href="http://weibo.com/5482298932">
+                                    <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+                                </a>
+                            </li>
+                            
+
+                                
+
+                                        
+                                            <li>
+                                                <a target="_blank" href="https://github.com/Mirror-l">
+                                                    <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+                                                </a>
+                                            </li>
+                                            
+
+                                                
+
+    </ul>
+    
+        <p>
+            <span>/</span>
+            
+                <span><a href="https://github.com/">github</a></span>
+                <span>/</span>
+                
+                <span><a href="https://spring.io/">spring</a></span>
+                <span>/</span>
+                
+                <span><a href="#">It helps SEO</a></span>
+                <span>/</span>
+                
+        </p>
+        
+            <p>
+                <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+                </span>
+                <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+                </span>
+                Created By <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

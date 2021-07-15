@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="ZuGuo·Tang的博客">
+    <meta name="keyword" content="Spring Cloud,micro services">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+            go入门 - ZuGuo·Tang的博客 | ZuGuo·Tang&#39;s Blog
+                
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css?v=0.0.2">
+        <link rel="stylesheet" href="/css/gitment.css">
+            <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+            <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+            <!-- ga & ba script hoook -->
+            <script></script>
+</head>
+<style>
+svg.svg-defs {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-bottom: 2em;
+    padding-bottom: 2em;
+    padding-right: 3em;
+    /* border-bottom: 1px solid #DDD; */
+    counter-increment: mylist;
+}
+.item:before {
+  content: counter(mylist);
+  position: absolute;
+  right: 0;
+  top: 0;
+  font: 2rem/1 Georgia, serif;
+  color: #EEE;
+}
+.item:after {
+  content: '';
+  display: table;
+  width: 100%;
+}
+
+.demo {
+  position: relative;
+  float: left;
+  margin-right: 30px;
+}
+.demo:before {
+  content: '';
+  display: block;
+  position: absolute;
+  z-index: -2;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: url(/img/banner.jpg) no-repeat;
+  opacity: 0;
+  transition: .7s;
+  background-size: 200px 360px;
+}
+.item:hover .demo:before {
+  opacity: .4;
+}
+
+.text {
+  padding-left: 230px;
+}
+
+.demo, #clipping-with-text, #masking text {
+    font: bold italic 5em/1.5 Georgia;
+}
+
+.item--svg-fill text {
+    fill: url(#pattern);
+}
+
+</style>
+<body>
+
+<svg class="svg-defs">
+    <defs>
+    <!-- <clipPath id="clipping">
+    <polygon points="98 153 38 185 49 118 1 70 68 61 98 1 128 61 195 70 147 118 158 185"></polygon>
+    </clipPath>
+    <clipPath id="clipping-with-text">
+    <polygon points="98 153 38 185 49 118 1 70 68 61 98 1 128 61 195 70 147 118 158 185"></polygon>
+    <text x="0" y="3.2em">Text</text>
+    </clipPath>
+    <linearGradient id="gradient" x1="0" y1="0" x2="110%" y2="0%">
+    <stop stop-color="#fff" offset="0"></stop><stop stop-color="#fff" offset="10%"></stop>
+    <stop stop-color="#AAA" offset="10%"></stop><stop stop-color="#AAA" offset="20%"></stop>
+    <stop stop-color="#777" offset="20%"></stop><stop stop-color="#777" offset="30%"></stop>
+    <stop stop-color="#333" offset="30%"></stop><stop stop-color="#333" offset="40%"></stop>
+    <stop stop-color="#000" offset="40%"></stop><stop stop-color="#000" offset="50%"></stop>
+    <stop stop-color="#fff" offset="50%"></stop><stop stop-color="#fff" offset="60%"></stop>
+    <stop stop-color="#AAA" offset="60%"></stop><stop stop-color="#AAA" offset="70%"></stop>
+    <stop stop-color="#777" offset="70%"></stop><stop stop-color="#777" offset="80%"></stop>
+    <stop stop-color="#333" offset="80%"></stop><stop stop-color="#333" offset="90%"></stop>
+    <stop stop-color="#000" offset="90%"></stop><stop stop-color="#000" offset="100%"></stop>
+    </linearGradient>
+    <mask id="masking" maskUnits="objectBoundingBox" maskContentUnits="objectBoundingBox">
+    <rect y="0" width="1" height="1" fill="url(#gradient)"></rect>
+    <circle cx=".5" cy=".5" r=".42" fill="black"></circle>
+    <circle cx="0" cy=".5" r=".32" fill="black"></circle>
+    <circle cx="1" cy=".5" r=".32" fill="black"></circle>
+    <circle cx="0" cy=".5" r=".3" fill="gray"></circle>
+    <circle cx=".5" cy=".5" r=".4" fill="gray"></circle>
+    <circle cx="1" cy=".5" r=".3" fill="gray"></circle>
+    <circle cx="0" cy=".5" r=".25" fill="white"></circle>
+    <circle cx=".5" cy=".5" r=".35" fill="white"></circle>
+    <circle cx="1" cy=".5" r=".25" fill="white"></circle>
+    </mask> -->
+    <pattern id="pattern" patternUnits="userSpaceOnUse" width="200" height="360" viewBox="0 0 200 360" style="overflow: hidden;">
+        <image xlink:href="/img/banner.jpg" width="200" height="360"></image>
+    </pattern>
+    </defs>
+</svg>
+
+<div class="item item--svg-fill">
+    <div class="demo">
+    <svg style="width: 200px;height: 360px;">
+        <text x="0" y="1em">雅✨</text>
+    </svg>
+    </div>
+</div>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 世界的樣子取決於寧的態度 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar ">
+            <img src="/img/avatar.jpg" />
+        </div>
+        <div class="name">
+            <i>ZuGuo·Tang</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Go的相关环境变量"><span class="toc-text">Go的相关环境变量</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#打印go的所有环境变量"><span class="toc-text">打印go的所有环境变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#打印具体某一个环境变量"><span class="toc-text">打印具体某一个环境变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#变量含义"><span class="toc-text">变量含义</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#GOOS和GOARCH的取值范围"><span class="toc-text">GOOS和GOARCH的取值范围</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#交叉编译"><span class="toc-text">交叉编译</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GO开发规范"><span class="toc-text">GO开发规范</span></a></li></ol></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+
+        <div class="index-about-mobile">
+            <i> 世界的樣子取決於寧的態度 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        go入门
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2019-12-10 12:14:30</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#GO" title="GO">GO</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <h1 id="Go的相关环境变量"><a href="#Go的相关环境变量" class="headerlink" title="Go的相关环境变量"></a>Go的相关环境变量</h1><h2 id="打印go的所有环境变量"><a href="#打印go的所有环境变量" class="headerlink" title="打印go的所有环境变量"></a>打印go的所有环境变量</h2><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">$ go env</span><br><span class="line"><span class="built_in">set</span> GO111MODULE=on</span><br><span class="line"><span class="built_in">set</span> GOARCH=amd64</span><br><span class="line"><span class="built_in">set</span> GOBIN=</span><br><span class="line"><span class="built_in">set</span> GOCACHE=C:\Users\tangzuguo\AppData\Local\go-build</span><br><span class="line"><span class="built_in">set</span> GOENV=C:\Users\tangzuguo\AppData\Roaming\go\env</span><br><span class="line"><span class="built_in">set</span> GOEXE=.exe</span><br><span class="line"><span class="built_in">set</span> GOFLAGS=</span><br><span class="line"><span class="built_in">set</span> GOHOSTARCH=amd64</span><br><span class="line"><span class="built_in">set</span> GOHOSTOS=windows</span><br><span class="line"><span class="built_in">set</span> GONOPROXY=*.corp.example.com</span><br><span class="line"><span class="built_in">set</span> GONOSUMDB=*.corp.example.com</span><br><span class="line"><span class="built_in">set</span> GOOS=windows</span><br><span class="line"><span class="built_in">set</span> GOPATH=C:\Users\tangzuguo\go</span><br><span class="line"><span class="built_in">set</span> GOPRIVATE=*.corp.example.com</span><br><span class="line"><span class="built_in">set</span> GOPROXY=https://goproxy.io</span><br><span class="line"><span class="built_in">set</span> GOROOT=D:\applications\go</span><br><span class="line"><span class="built_in">set</span> GOSUMDB=sum.golang.org</span><br><span class="line"><span class="built_in">set</span> GOTMPDIR=</span><br><span class="line"><span class="built_in">set</span> GOTOOLDIR=D:\applications\go\pkg\tool\windows_amd64</span><br><span class="line"><span class="built_in">set</span> GCCGO=gccgo</span><br><span class="line"><span class="built_in">set</span> AR=ar</span><br><span class="line"><span class="built_in">set</span> CC=gcc</span><br><span class="line"><span class="built_in">set</span> CXX=g++</span><br><span class="line"><span class="built_in">set</span> CGO_ENABLED=<span class="number">1</span></span><br><span class="line"><span class="built_in">set</span> GOMOD=<span class="built_in">NUL</span></span><br><span class="line"><span class="built_in">set</span> CGO_CFLAGS=-g -O2</span><br><span class="line"><span class="built_in">set</span> CGO_CPPFLAGS=</span><br><span class="line"><span class="built_in">set</span> CGO_CXXFLAGS=-g -O2</span><br><span class="line"><span class="built_in">set</span> CGO_FFLAGS=-g -O2</span><br><span class="line"><span class="built_in">set</span> CGO_LDFLAGS=-g -O2</span><br><span class="line"><span class="built_in">set</span> PKG_CONFIG=pkg-config</span><br><span class="line"><span class="built_in">set</span> GOGCCFLAGS=-m64 -mthreads -fmessage-length=<span class="number">0</span> -fdebug-prefix-map=C:\Users\TANGZU~<span class="number">1</span>\AppData\Local\Temp\go-build641621094=/tmp/go-build -gno-record-gcc-switches</span><br></pre></td></tr></table></figure>
+<h2 id="打印具体某一个环境变量"><a href="#打印具体某一个环境变量" class="headerlink" title="打印具体某一个环境变量"></a>打印具体某一个环境变量</h2><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ go env GOPATH</span><br></pre></td></tr></table></figure>
+<h2 id="变量含义"><a href="#变量含义" class="headerlink" title="变量含义"></a>变量含义</h2><p>GOROOT  表示Go语言的安装目录<br>GOPATH  指定我们的开发工作区(workspace),是存放源代码、测试文件、库静态文件、可执行文件的工作。<strong>注意，GOPATH的值不能与GOROOT相同。</strong><br>可以在GOPATH中设置多个工作区，如：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export GOPATH=/opt/go;$home/go</span><br></pre></td></tr></table></figure></p>
+<p>GOBIN   表示我们开发程序编译后二进制命令的安装目录。<br>GOOS    默认值是我们当前的操作系统， 如果windows，linux,注意mac os操作的上的值是darwin。<br>GOARCH  表示CPU架构，如386，amd64,arm等。</p>
+<h3 id="GOOS和GOARCH的取值范围"><a href="#GOOS和GOARCH的取值范围" class="headerlink" title="GOOS和GOARCH的取值范围"></a>GOOS和GOARCH的取值范围</h3><p>GOOS和GOARCH的值成对出现，而且只能是下面列表对应的值。<br><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">$GOOS</span>	    $GOARCH</span><br><span class="line"><span class="keyword">android	</span>    <span class="meta">arm</span></span><br><span class="line"><span class="symbol">darwin</span>	    <span class="number">386</span></span><br><span class="line"><span class="symbol">darwin</span>	    amd64</span><br><span class="line"><span class="symbol">darwin</span>	    <span class="meta">arm</span></span><br><span class="line"><span class="symbol">darwin</span>	    arm64</span><br><span class="line"><span class="symbol">dragonfly</span>   amd64</span><br><span class="line"><span class="symbol">freebsd</span>	    <span class="number">386</span></span><br><span class="line"><span class="symbol">freebsd</span>	    amd64</span><br><span class="line"><span class="symbol">freebsd</span>	    <span class="meta">arm</span></span><br><span class="line"><span class="symbol">linux</span>	    <span class="number">386</span></span><br><span class="line"><span class="symbol">linux</span>	    amd64</span><br><span class="line"><span class="symbol">linux</span>	    <span class="meta">arm</span></span><br><span class="line"><span class="symbol">linux</span>	    arm64</span><br><span class="line"><span class="symbol">linux</span>	    ppc64</span><br><span class="line"><span class="symbol">linux</span>	    ppc64le</span><br><span class="line"><span class="symbol">linux</span>	    mips</span><br><span class="line"><span class="symbol">linux</span>	    mipsle</span><br><span class="line"><span class="symbol">linux</span>	    mips64</span><br><span class="line"><span class="symbol">linux</span>	    mips64le</span><br><span class="line"><span class="symbol">linux</span>	    s390x</span><br><span class="line"><span class="symbol">netbsd</span>	    <span class="number">386</span></span><br><span class="line"><span class="symbol">netbsd</span>	    amd64</span><br><span class="line"><span class="symbol">netbsd</span>	    <span class="meta">arm</span></span><br><span class="line"><span class="symbol">openbsd</span>	    <span class="number">386</span></span><br><span class="line"><span class="symbol">openbsd</span>	    amd64</span><br><span class="line"><span class="symbol">openbsd</span>	    <span class="meta">arm</span></span><br><span class="line"><span class="symbol">plan9</span>	    <span class="number">386</span></span><br><span class="line"><span class="symbol">plan9</span>	    amd64</span><br><span class="line"><span class="symbol">solaris</span>	    amd64</span><br><span class="line"><span class="symbol">windows</span>	    <span class="number">386</span></span><br><span class="line"><span class="symbol">windows</span>	    amd64</span><br></pre></td></tr></table></figure></p>
+<h3 id="交叉编译"><a href="#交叉编译" class="headerlink" title="交叉编译"></a>交叉编译</h3><p>什么是交叉编译？所谓的交叉编译，是指在一个平台上就能生成可以在另一个平台运行的代码，例如，我们可以32位的Windows操作系统开发环境上，生成可以在64位Linux操作系统上运行的二进制程序。<br>在其他编程语言中进行交叉编译可能要借助第三方工具，但在Go语言进行交叉编译非常简单，最简单只需要设置GOOS和GOARCH这两个环境变量就可以了。</p>
+<p>示例<br>编译在64位Linux操作系统上运行的目标程序</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ GOOS=linux GOARCH=amd64 go build main.go</span><br></pre></td></tr></table></figure>
+<p>复制代码编译arm架构Android操作上的目标程序</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ GOOS=android GOARCH=arm GOARM=<span class="number">7</span> go build main.go</span><br></pre></td></tr></table></figure>
+<h2 id="GO开发规范"><a href="#GO开发规范" class="headerlink" title="GO开发规范"></a>GO开发规范</h2><p>上面的代码表示我们指定两个工作区，不过当我们使用go get命令去获取远程库的时候，一般会安装到第一个工作区当中。</p>
+<p>按照Go开发规范，GOPATH目录下的每个工作一般分为三个子目录:src,pkg,bin，所以我们看到的每个工作区是这样子的：<br><figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">bin/</span><br><span class="line">    hello                      <span class="comment"># 可执行文件</span></span><br><span class="line">    outyet                     <span class="comment"># 可执行文件</span></span><br><span class="line">src/</span><br><span class="line">    github.com/golang/example/</span><br><span class="line">        .git/                 </span><br><span class="line">    hello/</span><br><span class="line">        hello.go               <span class="comment"># 命令行代码</span></span><br><span class="line">    outyet/</span><br><span class="line">        main.go                <span class="comment"># 命令行代码</span></span><br><span class="line">        main_test.go           <span class="comment"># 测试代码</span></span><br><span class="line">    stringutil/</span><br><span class="line">        reverse.go             <span class="comment"># 库文件</span></span><br><span class="line">        reverse_test.go        <span class="comment"># 库文件</span></span><br><span class="line">    golang.org/x/image/</span><br><span class="line">        .git/                  </span><br><span class="line">    bmp/</span><br><span class="line">        reader.go              <span class="comment"># 库文件</span></span><br><span class="line">        writer.go              <span class="comment"># 库文件</span></span><br></pre></td></tr></table></figure></p>
+<p>更多GO项目结构规范参考<a href="https://www.jianshu.com/p/4726b9ac5fb1" target="_blank" rel="noopener">这里</a></p>
+
+        
+            <div class="donate-container">
+    <div class="donate-button">
+        <button id="donate-button">赞赏</button>
+    </div>
+    <div class="donate-img-container hide" id="donate-img-container">
+        <img id="donate-img" src="" data-src="/img/donate.png">
+        <p> 感谢鼓励 </p>
+    </div>
+</div>
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/xuan-xiao-80-6">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                        
+                            <li>
+                                <a target="_blank" href="http://weibo.com/5482298932">
+                                    <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+                                </a>
+                            </li>
+                            
+
+                                
+
+                                        
+                                            <li>
+                                                <a target="_blank" href="https://github.com/Mirror-l">
+                                                    <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+                                                </a>
+                                            </li>
+                                            
+
+                                                
+
+    </ul>
+    
+        <p>
+            <span>/</span>
+            
+                <span><a href="https://github.com/">github</a></span>
+                <span>/</span>
+                
+                <span><a href="https://spring.io/">spring</a></span>
+                <span>/</span>
+                
+                <span><a href="#">It helps SEO</a></span>
+                <span>/</span>
+                
+        </p>
+        
+            <p>
+                <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+                </span>
+                <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+                </span>
+                Created By <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>
